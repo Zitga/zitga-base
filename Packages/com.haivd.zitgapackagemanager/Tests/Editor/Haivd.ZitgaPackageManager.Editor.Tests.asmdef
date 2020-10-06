@@ -1,0 +1,14 @@
+{
+    "name": "Haivd.ZitgaPackageManager.Editor.Tests",
+    "references": [
+        "Haivd.ZitgaPackageManager.Editor",
+        "Haivd.ZitgaPackageManager"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

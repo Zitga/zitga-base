@@ -1,0 +1,11 @@
+{
+    "name": "Haivd.ZitgaPackageManager.Tests",
+    "references": [
+        "Haivd.ZitgaPackageManager"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
