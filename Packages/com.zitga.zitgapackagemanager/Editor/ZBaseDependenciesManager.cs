@@ -19,8 +19,8 @@ namespace ZitgaPackageManager.Editors
         private const int LOAD_DATA_COMPLETE = 2;
         private const string installURL = "https://github.com/Zitga/{0}.git?path=Packages/{1}";
         private const string suffixesVersionGitURL = "#{0}";
-        private const string packLockURL = "https://github.com/Zitga/{0}/raw/main/Packages/packages-lock.json";
-        private const string packVersionURL = "https://github.com/Zitga/{0}/raw/main/Packages/{1}/package.json";
+        private const string packLockURL = "https://github.com/Zitga/{0}/raw/master/Packages/packages-lock.json";
+        private const string packVersionURL = "https://github.com/Zitga/{0}/raw/master/Packages/{1}/package.json";
         private const string packLockLocalDir = "Packages/packages-lock.json";
         private const string packVersionLocalDir = "Packages/{0}/package.json";
         private const string packCacheLocalDir = "Library/PackageCache/{0}@{1}/package.json";
