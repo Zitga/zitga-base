@@ -40,7 +40,7 @@ namespace ZitgaPackageManager.Editors
         public static void ShowZBaseDependenciesManager()
         {
             var win = GetWindowWithRect<ZBaseDependenciesManager>(new Rect(0, 0, Width, Height), true);
-            win.titleContent = new GUIContent("Zitga Base Manager");
+            win.titleContent = new GUIContent("Zitga Package Manager");
             win.Focus();
         }
 
