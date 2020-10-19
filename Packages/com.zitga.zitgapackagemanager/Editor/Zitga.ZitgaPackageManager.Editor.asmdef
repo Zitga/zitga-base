@@ -1,0 +1,17 @@
+{
+    "name": "Zitga.ZitgaPackageManager.Editor",
+    "references": [
+        "GUID:1c5de08e8a6c13b49bf42755eaa47f6b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
