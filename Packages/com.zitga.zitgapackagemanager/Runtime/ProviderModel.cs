@@ -6,7 +6,7 @@ using ZitgaPackageManager;
 
 namespace ZitgaPackageManager.Models
 {
-    public class ProviderModel 
+    public class ProviderModel
     {
         public ZBaseEnum.Status currentStatues;
         public string providerName;
@@ -16,6 +16,7 @@ namespace ZitgaPackageManager.Models
         public string downloadURL;
         public string hash;
         public ZBaseEnum.Source source;
+        public Dictionary<string, string> dependencies;
 
         public ProviderModel ShallowCopy()
         {
@@ -30,6 +31,7 @@ namespace ZitgaPackageManager.Models
             source = ZBaseEnum.Source.registry;
             downloadURL = string.Empty;
             currentUnityVersion = "none";
+            dependencies = new Dictionary<string, string>();
         }
 
         public ProviderModel(string providerName, string displayName, string currVer, string lastVer, ZBaseEnum.Status currStatus, ZBaseEnum.Source source, string urlDownload = "")
@@ -61,8 +63,8 @@ namespace ZitgaPackageManager.Models
                 }
             }
             //display name
-            if (ZBasePackageIdConfig.listPackages.ContainsKey(name))
-                this.displayProviderName = ZBasePackageIdConfig.listPackages[name];
+            if (ZBasePackageIdConfig.ListPackages.ContainsKey(name))
+                this.displayProviderName = ZBasePackageIdConfig.ListPackages[name];
             //version, url
             dic.TryGetValue("version", out obj);
             if (obj != null)
