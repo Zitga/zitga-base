@@ -16,14 +16,14 @@ namespace ZitgaPackageManager.Editors
     {
         private const int Width = 760;
         private const int Height = 600;
-        private const int LOAD_DATA_COMPLETE = 2;
-        private const string installURL = "https://github.com/Zitga/{0}.git?path=Packages/{1}";
-        private const string suffixesVersionGitURL = "#{0}";
-        private const string packLockURL = "https://github.com/Zitga/{0}/raw/main/Packages/packages-lock.json";
-        private const string packVersionURL = "https://github.com/Zitga/{0}/raw/main/Packages/{1}/package.json";
-        private const string packLockLocalDir = "Packages/packages-lock.json";
-        private const string packVersionLocalDir = "Packages/{0}/package.json";
-        private const string packCacheLocalDir = "Library/PackageCache/{0}@{1}/package.json";
+        private const int LoadDataComplete = 2;
+        private const string InstallURL = "https://github.com/Zitga/{0}.git?path=Packages/{1}";
+        private const string SuffixesVersionGitURL = "#{0}";
+        private const string PackLockURL = "https://github.com/Zitga/{0}/raw/master/Packages/packages-lock.json";
+        private const string PackVersionURL = "https://github.com/Zitga/{0}/raw/master/Packages/{1}/package.json";
+        private const string PackLockLocalDir = "Packages/packages-lock.json";
+        private const string PackVersionLocalDir = "Packages/{0}/package.json";
+        private const string PackCacheLocalDir = "Library/PackageCache/{0}@{1}/package.json";
 
         private GUIStyle headerStyle;
         private GUIStyle textStyle;
@@ -36,6 +36,12 @@ namespace ZitgaPackageManager.Editors
         private int progressLoadData = 0;
         private bool isProcessing;
         private bool canRefresh;
+        
+        //Multi request
+        private AddRequest remRequest;
+        private List<string> pkgNameQueue = new List<string>();
+        private Queue<string> urlQueue = new Queue<string>();
+        private bool isAddMultiPkg = false;
 
         public static void ShowZBaseDependenciesManager()
         {
@@ -98,7 +104,7 @@ namespace ZitgaPackageManager.Editors
 
             foreach (var provider in providersLocal)
             {
-                if (provider.Value.providerName == ZBasePackageIdConfig.namePackageManager)
+                if (provider.Value.providerName == ZBasePackageIdConfig.NamePackageManager)
                     continue;
 
                 DrawProviderItem(provider.Value);
@@ -197,9 +203,9 @@ namespace ZitgaPackageManager.Editors
 
         void DrawProviderManager()
         {
-            if (providersLocal.ContainsKey(ZBasePackageIdConfig.namePackageManager))
+            if (providersLocal.ContainsKey(ZBasePackageIdConfig.NamePackageManager))
             {
-                ProviderModel providerData = providersLocal[ZBasePackageIdConfig.namePackageManager];
+                ProviderModel providerData = providersLocal[ZBasePackageIdConfig.NamePackageManager];
                 DrawProviderItem(providerData);
             }
         }
@@ -233,14 +239,29 @@ namespace ZitgaPackageManager.Editors
                                 try
                                 {
                                     Debug.LogWarning(">>>>>>>>> Install Click! <<<<<<<<<<");
-                                    ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                                    if (providersSet[providerData.providerName].dependencies.Count == 0)
                                     {
-                                        if (result.Status == StatusCode.Success)
+                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                                         {
-                                            Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                            canRefresh = true;
-                                        }
-                                    }));
+                                            if (result.Status == StatusCode.Success)
+                                            {
+                                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                canRefresh = true;
+                                            }
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                                        {
+                                            if (result.Status == StatusCode.Success)
+                                            {
+                                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                EditorApplication.UnlockReloadAssemblies();
+                                                canRefresh = true;
+                                            }
+                                        }));
+                                    }
                                 }
                                 catch (System.Exception e)
                                 {
@@ -262,14 +283,29 @@ namespace ZitgaPackageManager.Editors
                                 try
                                 {
                                     Debug.LogWarning(">>>>>>>>> Update Click! <<<<<<<<<<");
-                                    ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                                    if (providersSet[providerData.providerName].dependencies.Count == 0)
                                     {
-                                        if (result.Status == StatusCode.Success)
+                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                                         {
-                                            Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                            canRefresh = true;
-                                        }
-                                    }));
+                                            if (result.Status == StatusCode.Success)
+                                            {
+                                                Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                canRefresh = true;
+                                            }
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                                        {
+                                            if (result.Status == StatusCode.Success)
+                                            {
+                                                Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                EditorApplication.UnlockReloadAssemblies();
+                                                canRefresh = true;
+                                            }
+                                        }));
+                                    }
                                 }
                                 catch (System.Exception e)
                                 {
@@ -286,7 +322,7 @@ namespace ZitgaPackageManager.Editors
                             }, buttonWidth);
                         }
 
-                        if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.namePackageManager)
+                        if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.NamePackageManager)
                         {
                             GUI.enabled = true;
                             var btn = GUILayout.Button(new GUIContent
@@ -325,6 +361,114 @@ namespace ZitgaPackageManager.Editors
         #endregion
 
         #region Action
+        private IEnumerator AddPackageWithDependencie(ProviderModel providerInfo, System.Action<AddRequest> callback)
+        {
+            pkgNameQueue.Clear();
+            urlQueue.Clear();
+
+            foreach (var item in providersSet[providerInfo.providerName].dependencies)
+            {
+                if (providersLocal[item.Key].currentStatues != ZBaseEnum.Status.none)
+                {
+                    continue;
+                }
+                pkgNameQueue.Add(item.Key);
+            }
+
+            AddMultiPackage();
+
+            while (isAddMultiPkg)
+            {
+                isProcessing = true;
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerInfo, callback));
+        }
+
+
+        private void AddMultiPackage()
+        {
+            if (pkgNameQueue.Count == 0)
+            {
+                return;
+            }
+
+            isAddMultiPkg = true;
+
+            ProviderModel providerSever = null;
+            bool isRegistry = false;
+
+            foreach (var item in pkgNameQueue)
+            {
+                string urlDownload = "";
+                isRegistry = false;
+                providerSever = providersSet[item];
+
+                ZBaseEditorCoroutines.StartEditorCoroutine(SearchPackage(item, (resultSearch) =>
+                {
+                    if (resultSearch != null)
+                    {
+                        if (resultSearch.Result.Length > 0)
+                            isRegistry = true;
+                    }
+                }));
+
+                if (isRegistry)
+                {
+                    urlDownload = item;
+
+                }
+                else
+                {
+                    if (providerSever.source == ZBaseEnum.Source.git)
+                        urlDownload = providerSever.downloadURL + string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
+                    else if (providerSever.source == ZBaseEnum.Source.embedded)
+                        urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerSever.providerName);
+                    else if (providerSever.source == ZBaseEnum.Source.registry)
+                        urlDownload = providerSever.providerName;
+                }
+
+                urlQueue.Enqueue(urlDownload);
+            }
+
+            EditorApplication.update += PackageInstallProgress;
+            EditorApplication.LockReloadAssemblies();
+
+            remRequest = Client.Add(urlQueue.Dequeue());
+        }
+
+        void PackageInstallProgress()
+        {
+            if (remRequest.IsCompleted)
+            {
+                switch (remRequest.Status)
+                {
+                    case StatusCode.Failure:
+                        Debug.LogError("Couldn't install package '" + remRequest.Result.displayName + "': " + remRequest.Error.message);
+                        break;
+
+                    case StatusCode.InProgress:
+                        break;
+
+                    case StatusCode.Success:
+                        Debug.Log("Installed package: " + remRequest.Result.displayName);
+                        break;
+                }
+
+                if (urlQueue.Count > 0)
+                {
+                    remRequest = Client.Add(urlQueue.Dequeue());
+                }
+                else
+                {    // no more packages to remove
+                    EditorApplication.update -= PackageInstallProgress;
+                    isAddMultiPkg = false;
+                }
+
+            }
+        }
+
         private IEnumerator AddPackage(ProviderModel providerInfo, System.Action<AddRequest> callback)
         {
             AddRequest result = null;
@@ -332,9 +476,9 @@ namespace ZitgaPackageManager.Editors
             ProviderModel providerSever = providersSet[providerInfo.providerName];
 
             if (providerSever.source == ZBaseEnum.Source.git)
-                urlDownload = providerInfo.downloadURL + string.Format(suffixesVersionGitURL, providerInfo.latestUnityVersion);
+                urlDownload = providerInfo.downloadURL + string.Format(SuffixesVersionGitURL, providerInfo.latestUnityVersion);
             else if (providerSever.source == ZBaseEnum.Source.embedded)
-                urlDownload = string.Format(installURL, ZBasePackageIdConfig.REPO, providerInfo.providerName);
+                urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerInfo.providerName);
             else if (providerSever.source == ZBaseEnum.Source.registry)
                 urlDownload = providerInfo.providerName;
 
@@ -350,6 +494,28 @@ namespace ZitgaPackageManager.Editors
             if (result.Error != null)
             {
                 Debug.LogError("[Error] Add Fail: " + result.Error.message);
+                if (callback != null)
+                    callback(null);
+            }
+            else
+            {
+                if (callback != null)
+                    callback(result);
+            }
+        }
+
+        private IEnumerator SearchPackage(string PackageName, System.Action<SearchRequest> callback)
+        {
+            var result = Client.Search(PackageName);
+
+            while (!result.IsCompleted)
+            {
+                isProcessing = true;
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            if (result.Error != null)
+            {
                 if (callback != null)
                     callback(null);
             }
@@ -387,7 +553,7 @@ namespace ZitgaPackageManager.Editors
         #region Http       
         private void GetPackageLockServer()
         {
-            string urlPackageLock = string.Format(packLockURL, ZBasePackageIdConfig.REPO);
+            string urlPackageLock = string.Format(PackLockURL, ZBasePackageIdConfig.Repo);
             mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackageLock, (result) => GetDataFromPackageLockServer(result)));
         }
 
@@ -418,7 +584,7 @@ namespace ZitgaPackageManager.Editors
 
         private void GetPackageFromServer(string packageName, System.Action<Dictionary<string, object>> callback)
         {
-            string urlPackage = string.Format(packVersionURL, ZBasePackageIdConfig.REPO, packageName);
+            string urlPackage = string.Format(PackVersionURL, ZBasePackageIdConfig.Repo, packageName);
             mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackage, (result) => callback(result)));
         }
 
@@ -485,7 +651,7 @@ namespace ZitgaPackageManager.Editors
                         foreach (var item in dependencies as Dictionary<string, object>)
                         {
                             ProviderModel info = new ProviderModel();
-                            if (ZBasePackageIdConfig.listPackages.ContainsKey(item.Key))
+                            if (ZBasePackageIdConfig.ListPackages.ContainsKey(item.Key))
                             {
                                 if (info.GetFromJson(item.Key, item.Value as Dictionary<string, object>))
                                 {
@@ -523,7 +689,7 @@ namespace ZitgaPackageManager.Editors
 
             try
             {
-                string fileContent = File.ReadAllText(packLockLocalDir);
+                string fileContent = File.ReadAllText(PackLockLocalDir);
                 dic = Json.Deserialize(fileContent) as Dictionary<string, object>;
                 object dependencies;
                 if (dic.TryGetValue("dependencies", out dependencies))
@@ -535,7 +701,7 @@ namespace ZitgaPackageManager.Editors
                         foreach (var item in dependencies as Dictionary<string, object>)
                         {
                             ProviderModel info = new ProviderModel();
-                            if (ZBasePackageIdConfig.listPackages.ContainsKey(item.Key))
+                            if (ZBasePackageIdConfig.ListPackages.ContainsKey(item.Key))
                             {
                                 if (info.GetFromJson(item.Key, item.Value as Dictionary<string, object>))
                                 {
@@ -562,9 +728,9 @@ namespace ZitgaPackageManager.Editors
                         CompareVersion();
 
                         //check package not install
-                        if (providersLocal.Count != ZBasePackageIdConfig.listPackages.Count) //skip item package manager
+                        if (providersLocal.Count != ZBasePackageIdConfig.ListPackages.Count) //skip item package manager
                         {
-                            foreach (var item in ZBasePackageIdConfig.listPackages)
+                            foreach (var item in ZBasePackageIdConfig.ListPackages)
                             {
                                 if (providersLocal.ContainsKey(item.Key))
                                     continue;
@@ -596,7 +762,7 @@ namespace ZitgaPackageManager.Editors
             try
             {
                 Dictionary<string, object> dic = new Dictionary<string, object>();
-                string path = string.Format(packVersionLocalDir, namePackage);
+                string path = string.Format(PackVersionLocalDir, namePackage);
                 string fileContent = File.ReadAllText(path);
                 dic = Json.Deserialize(fileContent) as Dictionary<string, object>;
 
@@ -617,7 +783,7 @@ namespace ZitgaPackageManager.Editors
             try
             {
                 Dictionary<string, object> dic = new Dictionary<string, object>();
-                string path = string.Format(packCacheLocalDir, namePackage, hash);
+                string path = string.Format(PackCacheLocalDir, namePackage, hash);
                 string fileContent = File.ReadAllText(path);
                 dic = Json.Deserialize(fileContent) as Dictionary<string, object>;
 
@@ -635,7 +801,7 @@ namespace ZitgaPackageManager.Editors
 
         private bool IsLoadDataServerDone()
         {
-            if (progressLoadData >= LOAD_DATA_COMPLETE)
+            if (progressLoadData >= LoadDataComplete)
                 return true;
             else
                 return false;
