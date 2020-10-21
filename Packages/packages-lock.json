@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.0.36",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "3bebaef9694b012df09747b322362e3228f8c09d"
+    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
@@ -94,6 +101,13 @@
         "com.unity.package-validation-suite": "0.7.10-preview"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.vovgou.loxodon-framework": {
+      "version": "https://github.com/vovgou/loxodon-framework.git?path=Loxodon.Framework/Assets/LoxodonFramework#v2.0.5",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "34b0dbaa514266f3b1c9c3349292337273bb8c5e"
     },
     "com.zitga.zitgapackagemanager": {
       "version": "file:com.zitga.zitgapackagemanager",
