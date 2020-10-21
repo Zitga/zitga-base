@@ -18,12 +18,15 @@ namespace ZitgaPackageManager.Editors
         private const int Height = 600;
         private const int LoadDataComplete = 2;
         private const string InstallURL = "https://github.com/Zitga/{0}.git?path=Packages/{1}";
-        private const string SuffixesVersionGitURL = "#{0}";
         private const string PackLockURL = "https://github.com/Zitga/{0}/raw/master/Packages/packages-lock.json";
         private const string PackVersionURL = "https://github.com/Zitga/{0}/raw/master/Packages/{1}/package.json";
+        private const string PackDownloadURL = "https://github.com/Zitga/{0}/raw/master/Assets/PackageManagerDownload/{1}";
+        //
+        private const string SuffixesVersionGitURL = "#{0}";
         private const string PackLockLocalDir = "Packages/packages-lock.json";
         private const string PackVersionLocalDir = "Packages/{0}/package.json";
         private const string PackCacheLocalDir = "Library/PackageCache/{0}@{1}/package.json";
+        private const string PackManagerDownloadDir = "Library/PackageCache/{0}@{1}/Resources/{2}";
 
         private GUIStyle headerStyle;
         private GUIStyle textStyle;
@@ -36,7 +39,7 @@ namespace ZitgaPackageManager.Editors
         private int progressLoadData = 0;
         private bool isProcessing;
         private bool canRefresh;
-        
+
         //Multi request
         private AddRequest remRequest;
         private List<string> pkgNameQueue = new List<string>();
@@ -229,87 +232,136 @@ namespace ZitgaPackageManager.Editors
                     {
                         if (providerData.currentStatues == ZBaseEnum.Status.none)
                         {
-                            bool btn = GUILayout.Button(new GUIContent
+                            if (providerData.providerName.StartsWith("com"))
                             {
-                                text = "Install",
-                            }, buttonWidth);
-                            if (btn && !isProcessing)
-                            {
-                                GUI.enabled = true;
-                                try
+                                bool btn = GUILayout.Button(new GUIContent
                                 {
-                                    Debug.LogWarning(">>>>>>>>> Install Click! <<<<<<<<<<");
-                                    if (providersSet[providerData.providerName].dependencies.Count == 0)
-                                    {
-                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
-                                        {
-                                            if (result.Status == StatusCode.Success)
-                                            {
-                                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                canRefresh = true;
-                                            }
-                                        }));
-                                    }
-                                    else
-                                    {
-                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
-                                        {
-                                            if (result.Status == StatusCode.Success)
-                                            {
-                                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                EditorApplication.UnlockReloadAssemblies();
-                                                canRefresh = true;
-                                            }
-                                        }));
-                                    }
-                                }
-                                catch (System.Exception e)
+                                    text = "Install",
+                                }, buttonWidth);
+                                if (btn && !isProcessing)
                                 {
-                                    Debug.LogError("Error " + e.Message);
+                                    GUI.enabled = true;
+                                    try
+                                    {
+                                        Debug.LogWarning(">>>>>>>>> Install Click! <<<<<<<<<<");
+                                        if (providersSet[providerData.providerName].dependencies.Count == 0)
+                                        {
+                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                                            {
+                                                if (result.Status == StatusCode.Success)
+                                                {
+                                                    Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                    canRefresh = true;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                                            {
+                                                if (result.Status == StatusCode.Success)
+                                                {
+                                                    Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                    EditorApplication.UnlockReloadAssemblies();
+                                                    canRefresh = true;
+                                                }
+                                            }));
+                                        }
+                                    }
+                                    catch (System.Exception e)
+                                    {
+                                        Debug.LogError("Error " + e.Message);
+                                    }
                                 }
                             }
-
+                            else
+                            {
+                                bool btn = GUILayout.Button(new GUIContent
+                                {
+                                    text = "Download",
+                                }, GUILayout.ExpandWidth(true));
+                                if (btn && !isProcessing)
+                                {
+                                    GUI.enabled = true;
+                                    try
+                                    {
+                                        Debug.LogWarning(">>>>>>>>> Download Click! <<<<<<<<<<");
+                                        ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
+                                        {
+                                            AssetDatabase.Refresh();
+                                            canRefresh = true;
+                                        }));
+                                    }
+                                    catch (System.Exception e)
+                                    {
+                                        Debug.LogError("Error " + e.Message);
+                                    }
+                                }
+                            }
                         }
                         else if (providerData.currentStatues == ZBaseEnum.Status.installed)
                         {
-                            var btn = GUILayout.Button(new GUIContent
+                            if (providerData.providerName.StartsWith("com"))
                             {
-                                text = "Update",
-                            }
-                            , buttonWidth);
-                            if (btn && !isProcessing)
-                            {
-                                GUI.enabled = true;
-                                try
+                                var btn = GUILayout.Button(new GUIContent
                                 {
-                                    Debug.LogWarning(">>>>>>>>> Update Click! <<<<<<<<<<");
-                                    if (providersSet[providerData.providerName].dependencies.Count == 0)
+                                    text = "Update",
+                                }
+                            , buttonWidth);
+                                if (btn && !isProcessing)
+                                {
+                                    GUI.enabled = true;
+                                    try
                                     {
-                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                                        Debug.LogWarning(">>>>>>>>> Update Click! <<<<<<<<<<");
+                                        if (providersSet[providerData.providerName].dependencies.Count == 0)
                                         {
-                                            if (result.Status == StatusCode.Success)
+                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                                             {
-                                                Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                canRefresh = true;
-                                            }
-                                        }));
+                                                if (result.Status == StatusCode.Success)
+                                                {
+                                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                    canRefresh = true;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                                            {
+                                                if (result.Status == StatusCode.Success)
+                                                {
+                                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                                    EditorApplication.UnlockReloadAssemblies();
+                                                    canRefresh = true;
+                                                }
+                                            }));
+                                        }
                                     }
-                                    else
+                                    catch (System.Exception e)
                                     {
-                                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
-                                        {
-                                            if (result.Status == StatusCode.Success)
-                                            {
-                                                Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                EditorApplication.UnlockReloadAssemblies();
-                                                canRefresh = true;
-                                            }
-                                        }));
+                                        Debug.LogError("Error " + e.Message);
                                     }
                                 }
-                                catch (System.Exception e)
+                            }
+                            else
+                            {
+                                bool btn = GUILayout.Button(new GUIContent
                                 {
-                                    Debug.LogError("Error " + e.Message);
+                                    text = "Import",
+                                }, GUILayout.ExpandWidth(true));
+                                if (btn && !isProcessing)
+                                {
+                                    GUI.enabled = true;
+                                    try
+                                    {
+                                        Debug.LogWarning(">>>>>>>>> Import Click! <<<<<<<<<<");
+                                        ImportPackage(providerData.providerName);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Debug.LogError("Error " + e.Message);
+                                    }
                                 }
                             }
                         }
@@ -548,6 +600,15 @@ namespace ZitgaPackageManager.Editors
                     callback(result);
             }
         }
+
+        private void ImportPackage(string packageName)
+        {
+            string urlPackageImport = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, packageName);
+            if (CheckFileExist(urlPackageImport))
+                AssetDatabase.ImportPackage(urlPackageImport, true);
+            else
+                Debug.LogError("File import not found!");
+        }
         #endregion
 
         #region Http       
@@ -628,6 +689,41 @@ namespace ZitgaPackageManager.Editors
             else
             {
                 Debug.LogError("[Error] Load Fail: " + unityWebRequest.error);
+            }
+        }
+
+        private IEnumerator DownloadFile(string downloadFileUrl, string downloadFileName, System.Action callback)
+        {
+            string fileDownloading = string.Format("Downloading {0}", downloadFileName);
+            string path = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, downloadFileName);
+            UnityWebRequest downloadWebClient = new UnityWebRequest(downloadFileUrl);
+            downloadWebClient.downloadHandler = new DownloadHandlerFile(path);
+            downloadWebClient.SendWebRequest();
+            if (!downloadWebClient.isHttpError && !downloadWebClient.isNetworkError)
+            {
+                while (!downloadWebClient.isDone)
+                {
+                    isProcessing = true;
+                    yield return new WaitForSeconds(0.1f);
+                    if (EditorUtility.DisplayCancelableProgressBar("Download Manager", fileDownloading, downloadWebClient.downloadProgress))
+                    {
+                        Debug.LogError(downloadWebClient.error);
+                        CancelDownload();
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Error Downloading " + downloadFileName + " : " + downloadWebClient.error);
+            }
+            EditorUtility.ClearProgressBar();
+
+            //clean the downloadWebClient object regardless of whether the request succeeded or failed 
+            downloadWebClient.Dispose();
+            isProcessing = false;
+            if (callback != null)
+            {
+                callback.Invoke();
             }
         }
         #endregion
@@ -732,17 +828,27 @@ namespace ZitgaPackageManager.Editors
                         {
                             foreach (var item in ZBasePackageIdConfig.ListPackages)
                             {
-                                if (providersLocal.ContainsKey(item.Key))
-                                    continue;
+                                if (item.Key.StartsWith("com"))
+                                {
+                                    if (providersLocal.ContainsKey(item.Key))
+                                        continue;
 
-                                if (!providersSet.ContainsKey(item.Key))
-                                    continue;
+                                    if (!providersSet.ContainsKey(item.Key))
+                                        continue;
 
-                                ProviderModel info = providersSet[item.Key].ShallowCopy();
-                                info.currentStatues = ZBaseEnum.Status.none;
-                                info.currentUnityVersion = "none";
-                                providersLocal.Add(info.providerName, info);
-                                Debug.Log(string.Format(">>>Package {0} not install<<<", info.displayProviderName));
+                                    ProviderModel info = providersSet[item.Key].ShallowCopy();
+                                    info.currentStatues = ZBaseEnum.Status.none;
+                                    info.currentUnityVersion = "none";
+                                    providersLocal.Add(info.providerName, info);
+                                    Debug.Log(string.Format(">>>Package {0} not install<<<", info.displayProviderName));
+                                }
+                                else
+                                {
+                                    string pathPackage = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, item.Key);
+                                    ProviderModel info = new ProviderModel(item.Key, item.Value, "", "", CheckFileExist(pathPackage) ? ZBaseEnum.Status.installed : ZBaseEnum.Status.none,
+                                        ZBaseEnum.Source.package, string.Format(PackDownloadURL, ZBasePackageIdConfig.Repo, item.Key));
+                                    providersLocal.Add(info.providerName, info);
+                                }
                             }
                         }
 
@@ -814,16 +920,24 @@ namespace ZitgaPackageManager.Editors
         {
             foreach (var item in providersLocal)
             {
-                var providerServer = providersSet[item.Key];
-                if (isNewerVersion(item.Value.currentUnityVersion, providerServer.latestUnityVersion))
+                if (!providersSet.ContainsKey(item.Key))
                 {
-                    item.Value.currentStatues = ZBaseEnum.Status.installed;
+                    item.Value.currentStatues = ZBaseEnum.Status.updated;
+                    item.Value.latestUnityVersion = item.Value.currentUnityVersion;
                 }
                 else
                 {
-                    item.Value.currentStatues = ZBaseEnum.Status.updated;
+                    var providerServer = providersSet[item.Key];
+                    if (isNewerVersion(item.Value.currentUnityVersion, providerServer.latestUnityVersion))
+                    {
+                        item.Value.currentStatues = ZBaseEnum.Status.installed;
+                    }
+                    else
+                    {
+                        item.Value.currentStatues = ZBaseEnum.Status.updated;
+                    }
+                    item.Value.latestUnityVersion = providerServer.latestUnityVersion;
                 }
-                item.Value.latestUnityVersion = providerServer.latestUnityVersion;
             }
         }
 
@@ -855,6 +969,11 @@ namespace ZitgaPackageManager.Editors
             }
             return isNewer;
         }
+        private bool CheckFileExist(string pathFile)
+        {
+            return File.Exists(pathFile);
+        }
+
         #endregion
     }
 }

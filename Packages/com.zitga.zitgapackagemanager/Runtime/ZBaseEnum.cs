@@ -13,7 +13,8 @@
         {
             registry,
             git,
-            embedded
+            embedded,
+            package
         }
     }
 }
