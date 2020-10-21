@@ -26,7 +26,7 @@ namespace ZitgaPackageManager.Editors
         private const string PackLockLocalDir = "Packages/packages-lock.json";
         private const string PackVersionLocalDir = "Packages/{0}/package.json";
         private const string PackCacheLocalDir = "Library/PackageCache/{0}@{1}/package.json";
-        private const string PackManagerDownloadDir = "Library/PackageCache/{0}@{1}/Resources/{2}";
+        private const string PackManagerDownloadDir = "Library/PackageCache/{0}@{1}/{2}";
 
         private GUIStyle headerStyle;
         private GUIStyle textStyle;
