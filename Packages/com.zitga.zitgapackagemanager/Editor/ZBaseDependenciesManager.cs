@@ -374,7 +374,7 @@ namespace ZitgaPackageManager.Editors
                             }, buttonWidth);
                         }
 
-                        if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.NamePackageManager)
+                        if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.NamePackageManager && providerData.providerName.StartsWith("com"))
                         {
                             GUI.enabled = true;
                             var btn = GUILayout.Button(new GUIContent
@@ -694,33 +694,45 @@ namespace ZitgaPackageManager.Editors
 
         private IEnumerator DownloadFile(string downloadFileUrl, string downloadFileName, System.Action callback)
         {
-            string fileDownloading = string.Format("Downloading {0}", downloadFileName);
-            string path = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, downloadFileName);
-            UnityWebRequest downloadWebClient = new UnityWebRequest(downloadFileUrl);
-            downloadWebClient.downloadHandler = new DownloadHandlerFile(path);
-            downloadWebClient.SendWebRequest();
-            if (!downloadWebClient.isHttpError && !downloadWebClient.isNetworkError)
+            string fileDownloading = "";
+
+            Dictionary<string, string> listRequest = new Dictionary<string, string>();
+            listRequest.Add(downloadFileName, downloadFileUrl);
+            listRequest.Add(downloadFileName + ".meta", downloadFileUrl + ".meta");
+            foreach (var item in listRequest)
             {
-                while (!downloadWebClient.isDone)
+                string path = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, item.Key);
+                fileDownloading = string.Format("Downloading {0}", item.Key);
+
+                UnityWebRequest downloadWebClient = new UnityWebRequest(item.Value);
+                downloadWebClient.downloadHandler = new DownloadHandlerFile(path);
+                downloadWebClient.SendWebRequest();
+
+                if (!downloadWebClient.isHttpError && !downloadWebClient.isNetworkError)
                 {
-                    isProcessing = true;
-                    yield return new WaitForSeconds(0.1f);
-                    if (EditorUtility.DisplayCancelableProgressBar("Download Manager", fileDownloading, downloadWebClient.downloadProgress))
+                    while (!downloadWebClient.isDone)
                     {
-                        Debug.LogError(downloadWebClient.error);
-                        CancelDownload();
+                        isProcessing = true;
+                        yield return new WaitForSeconds(0.1f);
+                        if (EditorUtility.DisplayCancelableProgressBar("Download Manager", fileDownloading, downloadWebClient.downloadProgress))
+                        {
+                            Debug.LogError(downloadWebClient.error);
+                            CancelDownload();
+                            downloadWebClient.Dispose();
+                        }
                     }
                 }
+                else
+                {
+                    Debug.LogError("Error Downloading " + downloadFileName + " : " + downloadWebClient.error);
+                    CancelDownload();
+                    downloadWebClient.Dispose();
+                }
             }
-            else
-            {
-                Debug.LogError("Error Downloading " + downloadFileName + " : " + downloadWebClient.error);
-            }
+
             EditorUtility.ClearProgressBar();
 
-            //clean the downloadWebClient object regardless of whether the request succeeded or failed 
-            downloadWebClient.Dispose();
-            isProcessing = false;
+            yield return new WaitForSeconds(0.1f);
             if (callback != null)
             {
                 callback.Invoke();
