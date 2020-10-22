@@ -234,179 +234,217 @@ namespace ZitgaPackageManager.Editors
                         {
                             if (providerData.providerName.StartsWith("com"))
                             {
-                                bool btn = GUILayout.Button(new GUIContent
-                                {
-                                    text = "Install",
-                                }, buttonWidth);
-                                if (btn && !isProcessing)
-                                {
-                                    GUI.enabled = true;
-                                    try
-                                    {
-                                        Debug.LogWarning(">>>>>>>>> Install Click! <<<<<<<<<<");
-                                        if (providersSet[providerData.providerName].dependencies.Count == 0)
-                                        {
-                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
-                                            {
-                                                if (result.Status == StatusCode.Success)
-                                                {
-                                                    Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                    canRefresh = true;
-                                                }
-                                            }));
-                                        }
-                                        else
-                                        {
-                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
-                                            {
-                                                if (result.Status == StatusCode.Success)
-                                                {
-                                                    Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                    EditorApplication.UnlockReloadAssemblies();
-                                                    canRefresh = true;
-                                                }
-                                            }));
-                                        }
-                                    }
-                                    catch (System.Exception e)
-                                    {
-                                        Debug.LogError("Error " + e.Message);
-                                    }
-                                }
+                                InstallButton(providerData);
                             }
                             else
                             {
-                                bool btn = GUILayout.Button(new GUIContent
-                                {
-                                    text = "Download",
-                                }, GUILayout.ExpandWidth(true));
-                                if (btn && !isProcessing)
-                                {
-                                    GUI.enabled = true;
-                                    try
-                                    {
-                                        Debug.LogWarning(">>>>>>>>> Download Click! <<<<<<<<<<");
-                                        ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
-                                        {
-                                            AssetDatabase.Refresh();
-                                            canRefresh = true;
-                                        }));
-                                    }
-                                    catch (System.Exception e)
-                                    {
-                                        Debug.LogError("Error " + e.Message);
-                                    }
-                                }
+                                DownloadButton(providerData);
                             }
                         }
                         else if (providerData.currentStatues == ZBaseEnum.Status.installed)
                         {
                             if (providerData.providerName.StartsWith("com"))
                             {
-                                var btn = GUILayout.Button(new GUIContent
-                                {
-                                    text = "Update",
-                                }
-                            , buttonWidth);
-                                if (btn && !isProcessing)
-                                {
-                                    GUI.enabled = true;
-                                    try
-                                    {
-                                        Debug.LogWarning(">>>>>>>>> Update Click! <<<<<<<<<<");
-                                        if (providersSet[providerData.providerName].dependencies.Count == 0)
-                                        {
-                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
-                                            {
-                                                if (result.Status == StatusCode.Success)
-                                                {
-                                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                    canRefresh = true;
-                                                }
-                                            }));
-                                        }
-                                        else
-                                        {
-                                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
-                                            {
-                                                if (result.Status == StatusCode.Success)
-                                                {
-                                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                                    EditorApplication.UnlockReloadAssemblies();
-                                                    canRefresh = true;
-                                                }
-                                            }));
-                                        }
-                                    }
-                                    catch (System.Exception e)
-                                    {
-                                        Debug.LogError("Error " + e.Message);
-                                    }
-                                }
+                                UpdatedButton(providerData);
                             }
                             else
                             {
-                                bool btn = GUILayout.Button(new GUIContent
-                                {
-                                    text = "Import",
-                                }, GUILayout.ExpandWidth(true));
-                                if (btn && !isProcessing)
-                                {
-                                    GUI.enabled = true;
-                                    try
-                                    {
-                                        Debug.LogWarning(">>>>>>>>> Import Click! <<<<<<<<<<");
-                                        ImportPackage(providerData.providerName);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        Debug.LogError("Error " + e.Message);
-                                    }
-                                }
+                                ImportButton(providerData);
                             }
                         }
                         else
                         {
-                            GUI.enabled = false;
-                            GUILayout.Button(new GUIContent
-                            {
-                                text = "Updated",
-                            }, buttonWidth);
+                            UpdateButtonDisable();
                         }
 
                         if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.NamePackageManager && providerData.providerName.StartsWith("com"))
                         {
-                            GUI.enabled = true;
-                            var btn = GUILayout.Button(new GUIContent
-                            {
-                                text = "Remove",
-                            }
-                            , buttonWidth);
-                            if (btn && !isProcessing)
-                            {
-                                GUI.enabled = true;
-                                try
-                                {
-                                    Debug.LogWarning(">>>>>>>>> Remove Click! <<<<<<<<<<");
-                                    ZBaseEditorCoroutines.StartEditorCoroutine(RemovePackage(providerData.providerName, (result) =>
-                                    {
-                                        if (result.Status == StatusCode.Success)
-                                        {
-                                            Debug.Log(string.Format("***Remove Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                            canRefresh = true;
-                                        }
-                                    }));
-                                }
-                                catch (System.Exception e)
-                                {
-                                    Debug.LogError("Error " + e.Message);
-                                }
-                            }
+                            RemoveButton(providerData);
                         }
                     }
 
                     GUILayout.Space(5);
                     GUI.enabled = true;
+                }
+            }
+        }
+        #endregion
+
+        #region BUTTON
+        private void InstallButton(ProviderModel providerData)
+        {
+            bool btn = GUILayout.Button(new GUIContent
+            {
+                text = "Install",
+            }, buttonWidth);
+            if (btn && !isProcessing)
+            {
+                GUI.enabled = true;
+                try
+                {
+                    Debug.LogWarning(">>>>>>>>> Install Click! <<<<<<<<<<");
+                    if (providersSet[providerData.providerName].dependencies.Count == 0)
+                    {
+                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                        {
+                            if (result.Status == StatusCode.Success)
+                            {
+                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                canRefresh = true;
+                            }
+                        }));
+                    }
+                    else
+                    {
+                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                        {
+                            if (result.Status == StatusCode.Success)
+                            {
+                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                EditorApplication.UnlockReloadAssemblies();
+                                canRefresh = true;
+                            }
+                        }));
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("Error " + e.Message);
+                }
+            }
+        }
+
+        private void DownloadButton(ProviderModel providerData)
+        {
+            bool btn = GUILayout.Button(new GUIContent
+            {
+                text = "Download",
+            }, GUILayout.ExpandWidth(true));
+            if (btn && !isProcessing)
+            {
+                GUI.enabled = true;
+                try
+                {
+                    Debug.LogWarning(">>>>>>>>> Download Click! <<<<<<<<<<");
+                    ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
+                    {
+                        AssetDatabase.Refresh();
+                        canRefresh = true;
+                    }));
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("Error " + e.Message);
+                }
+            }
+        }
+
+        private void UpdatedButton(ProviderModel providerData, bool isDisable = false)
+        {
+            if (isDisable)
+            {
+                GUI.enabled = false;
+                GUILayout.Button(new GUIContent
+                {
+                    text = "Updated",
+                }, buttonWidth);
+            }
+            else
+            {
+                var btn = GUILayout.Button(new GUIContent
+                {
+                    text = "Update",
+                }
+                                , buttonWidth);
+                if (btn && !isProcessing)
+                {
+                    GUI.enabled = true;
+                    try
+                    {
+                        Debug.LogWarning(">>>>>>>>> Update Click! <<<<<<<<<<");
+                        if (providersSet[providerData.providerName].dependencies.Count == 0)
+                        {
+                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                            {
+                                if (result.Status == StatusCode.Success)
+                                {
+                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                    canRefresh = true;
+                                }
+                            }));
+                        }
+                        else
+                        {
+                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                            {
+                                if (result.Status == StatusCode.Success)
+                                {
+                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                    EditorApplication.UnlockReloadAssemblies();
+                                    canRefresh = true;
+                                }
+                            }));
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError("Error " + e.Message);
+                    }
+                }
+            }
+        }
+        private void UpdateButtonDisable()
+        {
+            UpdatedButton(null, true);
+        }
+
+        private void ImportButton(ProviderModel providerData)
+        {
+            bool btn = GUILayout.Button(new GUIContent
+            {
+                text = "Import",
+            }, GUILayout.ExpandWidth(true));
+            if (btn && !isProcessing)
+            {
+                GUI.enabled = true;
+                try
+                {
+                    Debug.LogWarning(">>>>>>>>> Import Click! <<<<<<<<<<");
+                    ImportPackage(providerData.providerName);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Error " + e.Message);
+                }
+            }
+        }
+
+        private void RemoveButton(ProviderModel providerData)
+        {
+            GUI.enabled = true;
+            var btn = GUILayout.Button(new GUIContent
+            {
+                text = "Remove",
+            }
+            , buttonWidth);
+            if (btn && !isProcessing)
+            {
+                GUI.enabled = true;
+                try
+                {
+                    Debug.LogWarning(">>>>>>>>> Remove Click! <<<<<<<<<<");
+                    ZBaseEditorCoroutines.StartEditorCoroutine(RemovePackage(providerData.providerName, (result) =>
+                    {
+                        if (result.Status == StatusCode.Success)
+                        {
+                            Debug.Log(string.Format("***Remove Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                            canRefresh = true;
+                        }
+                    }));
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("Error " + e.Message);
                 }
             }
         }
