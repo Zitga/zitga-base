@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.Genui.Editor",
+    "references": [
+      "Zitga.Genui"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
