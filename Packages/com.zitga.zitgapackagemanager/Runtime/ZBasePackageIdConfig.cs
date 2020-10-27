@@ -11,6 +11,7 @@ public class ZBasePackageIdConfig
         { "com.vovgou.loxodon-framework","Loxodon Framework" },
         { "com.cysharp.unitask","UniTask"},
         { "DOTween_Pro_1.0.244.unitypackage","DOTween Pro v1.0.244" },
-        { "Clean_Empty_Directories.unitypackage","Clean Empty Directories"}
+        { "Clean_Empty_Directories.unitypackage","Clean Empty Directories"},
+        { "com.zitga.genui","GenUI" },
     };
 }

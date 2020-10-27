@@ -109,6 +109,12 @@
       "dependencies": {},
       "hash": "34b0dbaa514266f3b1c9c3349292337273bb8c5e"
     },
+    "com.zitga.genui": {
+      "version": "file:com.zitga.genui",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.zitga.zitgapackagemanager": {
       "version": "file:com.zitga.zitgapackagemanager",
       "depth": 0,
