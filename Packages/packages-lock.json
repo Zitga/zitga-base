@@ -136,19 +136,19 @@
       "url": "https://packages.unity.com"
     },
     "zitga.clearnemptydirectories": {
-      "version": "file:com.zitga.clearnemptydirectories",
+      "version": "file:zitga.clearnemptydirectories",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
     },
     "zitga.dotweenpro": {
-      "version": "file:com.zitga.dotweenpro",
+      "version": "file:zitga.dotweenpro",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
     },
     "zitga.externaldependencyunity": {
-      "version": "file:com.zitga.externaldependencyunity",
+      "version": "file:zitga.externaldependencyunity",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}

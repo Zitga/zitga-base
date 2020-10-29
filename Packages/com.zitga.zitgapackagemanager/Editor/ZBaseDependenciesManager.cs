@@ -728,7 +728,7 @@ namespace ZitgaPackageManager.Editors
 
                 catch (Exception e)
                 {
-                    Debug.LogError("[Parse Data] Error: " + e.ToString());
+                    Debug.LogError("[Get] URL: " + url + "\n" + "[Parse Data] Error: " + e.ToString());
                 }
 
             }
