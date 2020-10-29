@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "3bebaef9694b012df09747b322362e3228f8c09d"
     },
+    "com.google.external-dependency-manager": {
+      "version": "1.2.161",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unityregistry-pa.googleapis.com"
+    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
@@ -127,6 +134,24 @@
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
+    },
+    "zitga.clearnemptydirectories": {
+      "version": "file:com.zitga.clearnemptydirectories",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "zitga.dotweenpro": {
+      "version": "file:com.zitga.dotweenpro",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "zitga.externaldependencyunity": {
+      "version": "file:com.zitga.externaldependencyunity",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
