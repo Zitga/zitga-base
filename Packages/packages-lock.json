@@ -153,6 +153,18 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "zitga.facebook": {
+      "version": "file:zitga.facebook",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "zitga.logviewer": {
+      "version": "file:zitga.logviewer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
