@@ -15,5 +15,7 @@ public class ZBasePackageIdConfig
         { "zitga.clearnemptydirectories","Clean_Empty_Directories"},
         { "com.zitga.genui","GenUI" },
         { "zitga.externaldependencyunity","External_Dependency_Manager_1.2.161" },
+        { "zitga.logviewer","Log_Viewer_1.8.0" },
+        { "zitga.facebook","Facebook_Unity_Sdk_8.1.0" },
     };
 }

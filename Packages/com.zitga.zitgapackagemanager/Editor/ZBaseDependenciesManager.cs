@@ -259,7 +259,7 @@ namespace ZitgaPackageManager.Editors
                             UpdateButtonDisable();
                         }
 
-                        if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.NamePackageManager && providerData.providerName.StartsWith("com"))
+                        if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.NamePackageManager)
                         {
                             RemoveButton(providerData);
                         }
@@ -1019,6 +1019,9 @@ namespace ZitgaPackageManager.Editors
             bool isNewer = false;
             try
             {
+                current = current.Replace("v", "");
+                latest = latest.Replace("v", "");
+
                 int[] currentVersion = Array.ConvertAll(current.Split('.'), int.Parse);
                 int[] remoteVersion = Array.ConvertAll(latest.Split('.'), int.Parse);
                 int remoteBuild = 0;
