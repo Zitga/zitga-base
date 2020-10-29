@@ -14,7 +14,7 @@ namespace ZitgaPackageManager.Editors
 {
     public class ZBaseDependenciesManager : EditorWindow
     {
-        private const int Width = 760;
+        private const int Width = 1000;
         private const int Height = 600;
         private const int LoadDataComplete = 2;
         private const string InstallURL = "https://github.com/Zitga/{0}.git?path=Packages/{1}";
@@ -27,11 +27,13 @@ namespace ZitgaPackageManager.Editors
         private const string PackVersionLocalDir = "Packages/{0}/package.json";
         private const string PackCacheLocalDir = "Library/PackageCache/{0}@{1}/package.json";
         private const string PackManagerDownloadDir = "Library/PackageCache/{0}@{1}/{2}";
+        private const string InstallPackLocalDir = "Library/PackageCache/{0}@{1}/FilePackage/{2}.unitypackage";
 
         private GUIStyle headerStyle;
         private GUIStyle textStyle;
         private GUIStyle boldTextStyle;
         private readonly GUILayoutOption buttonWidth = GUILayout.Width(60);
+        private readonly GUILayoutOption buttonHeight = GUILayout.Height(25);
 
         private readonly Dictionary<string, ProviderModel> providersSet = new Dictionary<string, ProviderModel>();
         private readonly Dictionary<string, ProviderModel> providersLocal = new Dictionary<string, ProviderModel>();
@@ -117,7 +119,7 @@ namespace ZitgaPackageManager.Editors
             GUILayout.FlexibleSpace();
             using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(false)))
             {
-                GUILayout.Space(698);
+                GUILayout.Space(938);
                 if (GUILayout.Button("Refresh", GUILayout.Width(60), GUILayout.Height(30)) && !isProcessing)
                 {
                     Refresh();
@@ -276,7 +278,7 @@ namespace ZitgaPackageManager.Editors
             bool btn = GUILayout.Button(new GUIContent
             {
                 text = "Install",
-            }, buttonWidth);
+            }, buttonWidth, buttonHeight);
             if (btn && !isProcessing)
             {
                 GUI.enabled = true;
@@ -319,18 +321,26 @@ namespace ZitgaPackageManager.Editors
             bool btn = GUILayout.Button(new GUIContent
             {
                 text = "Download",
-            }, GUILayout.ExpandWidth(true));
+            }, GUILayout.ExpandWidth(false), buttonHeight);
             if (btn && !isProcessing)
             {
                 GUI.enabled = true;
                 try
                 {
                     Debug.LogWarning(">>>>>>>>> Download Click! <<<<<<<<<<");
-                    ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
+                    ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                     {
-                        AssetDatabase.Refresh();
-                        canRefresh = true;
+                        if (result.Status == StatusCode.Success)
+                        {
+                            Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                            canRefresh = true;
+                        }
                     }));
+                    //ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
+                    //{
+                    //    AssetDatabase.Refresh();
+                    //    canRefresh = true;
+                    //}));
                 }
                 catch (System.Exception e)
                 {
@@ -347,15 +357,14 @@ namespace ZitgaPackageManager.Editors
                 GUILayout.Button(new GUIContent
                 {
                     text = "Updated",
-                }, buttonWidth);
+                }, buttonWidth, buttonHeight);
             }
             else
             {
                 var btn = GUILayout.Button(new GUIContent
                 {
                     text = "Update",
-                }
-                                , buttonWidth);
+                }, buttonWidth, buttonHeight);
                 if (btn && !isProcessing)
                 {
                     GUI.enabled = true;
@@ -403,14 +412,14 @@ namespace ZitgaPackageManager.Editors
             bool btn = GUILayout.Button(new GUIContent
             {
                 text = "Import",
-            }, GUILayout.ExpandWidth(true));
+            }, GUILayout.ExpandWidth(false), buttonHeight);
             if (btn && !isProcessing)
             {
                 GUI.enabled = true;
                 try
                 {
                     Debug.LogWarning(">>>>>>>>> Import Click! <<<<<<<<<<");
-                    ImportPackage(providerData.providerName);
+                    ImportPackage(providerData);
                 }
                 catch (Exception e)
                 {
@@ -425,8 +434,7 @@ namespace ZitgaPackageManager.Editors
             var btn = GUILayout.Button(new GUIContent
             {
                 text = "Remove",
-            }
-            , buttonWidth);
+            }, buttonWidth, buttonHeight);
             if (btn && !isProcessing)
             {
                 GUI.enabled = true;
@@ -639,9 +647,9 @@ namespace ZitgaPackageManager.Editors
             }
         }
 
-        private void ImportPackage(string packageName)
+        private void ImportPackage(ProviderModel providerModel)
         {
-            string urlPackageImport = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, packageName);
+            string urlPackageImport = string.Format(InstallPackLocalDir, providerModel.providerName, providersLocal[providerModel.providerName].hash, providerModel.displayProviderName);
             if (CheckFileExist(urlPackageImport))
                 AssetDatabase.ImportPackage(urlPackageImport, true);
             else
@@ -878,27 +886,34 @@ namespace ZitgaPackageManager.Editors
                         {
                             foreach (var item in ZBasePackageIdConfig.ListPackages)
                             {
-                                if (item.Key.StartsWith("com"))
-                                {
-                                    if (providersLocal.ContainsKey(item.Key))
-                                        continue;
+                                if (providersLocal.ContainsKey(item.Key))
+                                    continue;
 
-                                    if (!providersSet.ContainsKey(item.Key))
-                                        continue;
+                                if (!providersSet.ContainsKey(item.Key))
+                                    continue;
 
-                                    ProviderModel info = providersSet[item.Key].ShallowCopy();
-                                    info.currentStatues = ZBaseEnum.Status.none;
-                                    info.currentUnityVersion = "none";
-                                    providersLocal.Add(info.providerName, info);
-                                    Debug.Log(string.Format(">>>Package {0} not install<<<", info.displayProviderName));
-                                }
-                                else
-                                {
-                                    string pathPackage = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, item.Key);
-                                    ProviderModel info = new ProviderModel(item.Key, item.Value, "", "", CheckFileExist(pathPackage) ? ZBaseEnum.Status.installed : ZBaseEnum.Status.none,
-                                        ZBaseEnum.Source.package, string.Format(PackDownloadURL, ZBasePackageIdConfig.Repo, item.Key));
-                                    providersLocal.Add(info.providerName, info);
-                                }
+
+                                ProviderModel info = providersSet[item.Key].ShallowCopy();
+                                info.currentStatues = ZBaseEnum.Status.none;
+                                info.currentUnityVersion = "none";
+                                if (!item.Key.StartsWith("com"))
+                                    info.source = ZBaseEnum.Source.package;
+
+                                providersLocal.Add(info.providerName, info);
+
+                                //if (item.Key.StartsWith("com"))
+                                //{
+
+                                //}
+                                //else
+                                //{
+                                //    string pathPackage = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, item.Key);
+                                //    ProviderModel info = new ProviderModel(item.Key, item.Value, "", "", CheckFileExist(pathPackage) ? ZBaseEnum.Status.installed : ZBaseEnum.Status.none,
+                                //        ZBaseEnum.Source.package, string.Format(PackDownloadURL, ZBasePackageIdConfig.Repo, item.Key));
+                                //    providersLocal.Add(info.providerName, info);
+                                //}
+
+                                Debug.Log(string.Format(">>>Package {0} not install<<<", info.displayProviderName));
                             }
                         }
 
@@ -972,7 +987,11 @@ namespace ZitgaPackageManager.Editors
             {
                 if (!providersSet.ContainsKey(item.Key))
                 {
-                    item.Value.currentStatues = ZBaseEnum.Status.updated;
+                    if (item.Key.StartsWith("com"))
+                        item.Value.currentStatues = ZBaseEnum.Status.updated;
+                    else
+                        item.Value.currentStatues = ZBaseEnum.Status.installed;
+
                     item.Value.latestUnityVersion = item.Value.currentUnityVersion;
                 }
                 else
@@ -984,8 +1003,12 @@ namespace ZitgaPackageManager.Editors
                     }
                     else
                     {
-                        item.Value.currentStatues = ZBaseEnum.Status.updated;
+                        if (item.Key.StartsWith("com"))
+                            item.Value.currentStatues = ZBaseEnum.Status.updated;
+                        else
+                            item.Value.currentStatues = ZBaseEnum.Status.installed;
                     }
+
                     item.Value.latestUnityVersion = providerServer.latestUnityVersion;
                 }
             }
