@@ -11,11 +11,11 @@ public class ZBasePackageIdConfig
         { "com.zitga.zitgapackagemanager", "Zitga Package Manager" },
         { "com.vovgou.loxodon-framework","Loxodon Framework" },
         { "com.cysharp.unitask","UniTask"},
-        { "zitga.dotweenpro","DOTween_Pro_1.0.244" },
+        { "zitga.dotweenpro","DOTween_Pro" },
         { "zitga.clearnemptydirectories","Clean_Empty_Directories"},
         { "com.zitga.genui","GenUI" },
-        { "zitga.externaldependencyunity","External_Dependency_Manager_1.2.161" },
-        { "zitga.logviewer","Log_Viewer_1.8.0" },
-        { "zitga.facebook","Facebook_Unity_Sdk_8.1.0" },
+        { "zitga.externaldependencyunity","External_Dependency_Manager" },
+        { "zitga.logviewer","Log_Viewer" },
+        { "zitga.facebook","Facebook_Unity_Sdk" },
     };
 }
