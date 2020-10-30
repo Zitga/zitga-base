@@ -92,6 +92,16 @@ namespace ZitgaPackageManager.Models
                 this.hash = obj as string;
                 this.hash = this.hash.Remove(10);
             }
+            //dependencies
+            dic.TryGetValue("dependencies", out obj);
+            if (obj != null)
+            {
+                Dictionary<string, object> dependenciesData = obj as Dictionary<string, object>;
+                foreach (var item in dependenciesData)
+                {
+                    this.dependencies.Add(item.Key, item.Value as string);
+                }
+            }
 
             return true;
         }

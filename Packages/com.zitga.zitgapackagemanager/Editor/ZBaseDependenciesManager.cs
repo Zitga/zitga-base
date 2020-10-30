@@ -332,14 +332,29 @@ namespace ZitgaPackageManager.Editors
                 try
                 {
                     Debug.LogWarning(">>>>>>>>> Download Click! <<<<<<<<<<");
-                    ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                    if (providersSet[providerData.providerName].dependencies.Count == 0)
+                    {
+                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                     {
                         if (result.Status == StatusCode.Success)
                         {
-                            Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                            Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
                             canRefresh = true;
                         }
                     }));
+                    }
+                    else
+                    {
+                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                        {
+                            if (result.Status == StatusCode.Success)
+                            {
+                                Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                EditorApplication.UnlockReloadAssemblies();
+                                canRefresh = true;
+                            }
+                        }));
+                    }
                     //ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
                     //{
                     //    AssetDatabase.Refresh();
