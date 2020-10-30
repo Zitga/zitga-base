@@ -159,6 +159,14 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "zitga.google.googleplaygames": {
+      "version": "file:zitga.google.googleplaygames",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "zitga.externaldependencyunity": ""
+      }
+    },
     "zitga.logviewer": {
       "version": "file:zitga.logviewer",
       "depth": 0,
