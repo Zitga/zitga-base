@@ -11,7 +11,6 @@
     "com.unity.timeline": "1.2.16",
     "com.unity.ugui": "1.0.0",
     "com.unity.upm.develop": "0.1.2-preview",
-    "com.vovgou.loxodon-framework": "https://github.com/vovgou/loxodon-framework.git?path=Loxodon.Framework/Assets/LoxodonFramework#v2.0.5",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
