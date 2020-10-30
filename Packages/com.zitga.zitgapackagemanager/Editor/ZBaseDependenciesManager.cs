@@ -31,7 +31,7 @@ namespace ZitgaPackageManager.Editors
 
         private GUIStyle headerStyle;
         private GUIStyle textStyle;
-        private GUIStyle boldTextStyle;
+        private GUIStyle textVersionStyle;
         private readonly GUILayoutOption buttonWidth = GUILayout.Width(60);
         private readonly GUILayoutOption buttonHeight = GUILayout.Height(25);
 
@@ -65,20 +65,24 @@ namespace ZitgaPackageManager.Editors
                 stretchWidth = true,
                 fixedWidth = Width / 4 + 5,
                 clipping = TextClipping.Overflow,
-                alignment = TextAnchor.MiddleLeft
+                alignment = TextAnchor.MiddleCenter,
+                padding = new RectOffset(0, 100, 0, 0),
             };
+
             textStyle = new GUIStyle(EditorStyles.label)
             {
                 fontStyle = FontStyle.Normal,
-                alignment = TextAnchor.MiddleLeft
-
+                clipping = TextClipping.Overflow,
+                alignment = TextAnchor.MiddleLeft,
             };
-            boldTextStyle = new GUIStyle(EditorStyles.label)
+
+            textVersionStyle = new GUIStyle(EditorStyles.label)
             {
-                fontStyle = FontStyle.Bold,
-                alignment = TextAnchor.MiddleCenter
+                fontStyle = FontStyle.Normal,
+                clipping = TextClipping.Overflow,
+                alignment = TextAnchor.MiddleLeft,
+                padding = new RectOffset(50, 100, 0, 0),
             };
-
 
             CheckVersion();
 
@@ -227,8 +231,8 @@ namespace ZitgaPackageManager.Editors
                     GUI.enabled = true;
 
                     EditorGUILayout.LabelField(providerData.displayProviderName, textStyle);
-                    EditorGUILayout.LabelField(providerData.currentUnityVersion, textStyle);
-                    EditorGUILayout.LabelField(providerData.latestUnityVersion, textStyle);
+                    EditorGUILayout.LabelField(providerData.currentUnityVersion, textVersionStyle);
+                    EditorGUILayout.LabelField(providerData.latestUnityVersion, textVersionStyle);
 
                     using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(true)))
                     {
@@ -328,14 +332,29 @@ namespace ZitgaPackageManager.Editors
                 try
                 {
                     Debug.LogWarning(">>>>>>>>> Download Click! <<<<<<<<<<");
-                    ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
+                    if (providersSet[providerData.providerName].dependencies.Count == 0)
+                    {
+                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                     {
                         if (result.Status == StatusCode.Success)
                         {
-                            Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                            Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
                             canRefresh = true;
                         }
                     }));
+                    }
+                    else
+                    {
+                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
+                        {
+                            if (result.Status == StatusCode.Success)
+                            {
+                                Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                EditorApplication.UnlockReloadAssemblies();
+                                canRefresh = true;
+                            }
+                        }));
+                    }
                     //ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
                     //{
                     //    AssetDatabase.Refresh();
@@ -1049,7 +1068,6 @@ namespace ZitgaPackageManager.Editors
         {
             return File.Exists(pathFile);
         }
-
         #endregion
     }
 }

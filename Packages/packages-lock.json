@@ -14,6 +14,14 @@
       "dependencies": {},
       "url": "https://unityregistry-pa.googleapis.com"
     },
+    "com.haivd.casualuimanager": {
+      "version": "file:com.haivd.casualuimanager",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "zitga.dotweenpro": ""
+      }
+    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
@@ -109,13 +117,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.vovgou.loxodon-framework": {
-      "version": "https://github.com/vovgou/loxodon-framework.git?path=Loxodon.Framework/Assets/LoxodonFramework#v2.0.5",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "34b0dbaa514266f3b1c9c3349292337273bb8c5e"
-    },
     "com.zitga.genui": {
       "version": "file:com.zitga.genui",
       "depth": 0,
@@ -158,6 +159,14 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
+    },
+    "zitga.google.googleplaygames": {
+      "version": "file:zitga.google.googleplaygames",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "zitga.externaldependencyunity": ""
+      }
     },
     "zitga.logviewer": {
       "version": "file:zitga.logviewer",
