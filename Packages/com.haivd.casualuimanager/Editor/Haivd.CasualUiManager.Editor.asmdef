@@ -1,0 +1,10 @@
+{
+    "name": "Haivd.CasualUiManager.Editor",
+    "references": [
+      "Haivd.CasualUiManager"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
