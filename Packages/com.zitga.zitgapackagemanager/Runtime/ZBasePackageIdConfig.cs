@@ -17,5 +17,6 @@ public class ZBasePackageIdConfig
         { "zitga.externaldependencyunity","External_Dependency_Manager" },
         { "zitga.logviewer","Log_Viewer" },
         { "zitga.facebook","Facebook_Unity_Sdk" },
+        { "zitga.google.googleplaygames","GooglePlayGamesPlugin" },
     };
 }
