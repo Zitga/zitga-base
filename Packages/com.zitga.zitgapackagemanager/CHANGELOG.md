@@ -9,3 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### This is the first release of *\<Zitga Package Manager\>*.
 
 *Short description of this release*
+
+## [0.1.7] - 2020-10-30
+ 
+### This is the first release of *\<Casual UI System\>*.
