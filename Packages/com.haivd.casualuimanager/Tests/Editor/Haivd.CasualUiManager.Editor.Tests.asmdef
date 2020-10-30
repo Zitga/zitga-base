@@ -1,0 +1,14 @@
+{
+    "name": "Haivd.CasualUiManager.Editor.Tests",
+    "references": [
+        "Haivd.CasualUiManager.Editor",
+        "Haivd.CasualUiManager"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
