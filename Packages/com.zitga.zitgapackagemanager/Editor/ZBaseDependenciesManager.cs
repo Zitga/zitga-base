@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using ZBaseJsonHelper;
 using ZitgaPackageManager.Models;
+using System.Linq;
 
 namespace ZitgaPackageManager.Editors
 {
@@ -16,11 +17,12 @@ namespace ZitgaPackageManager.Editors
     {
         private const int Width = 1000;
         private const int Height = 600;
-        private const int LoadDataComplete = 2;
+        private const int LoadDataComplete = 3;
         private const string InstallURL = "https://github.com/Zitga/{0}.git?path=Packages/{1}";
         private const string PackLockURL = "https://github.com/Zitga/{0}/raw/master/Packages/packages-lock.json";
         private const string PackVersionURL = "https://github.com/Zitga/{0}/raw/master/Packages/{1}/package.json";
         private const string PackDownloadURL = "https://github.com/Zitga/{0}/raw/master/Assets/PackageManagerDownload/{1}";
+        private const string PackIdConfigURL = "https://github.com/Zitga/{0}/raw/master/Assets/AssetConfig/package_id_config.json";
         //
         private const string SuffixesVersionGitURL = "#{0}";
         private const string PackLockLocalDir = "Packages/packages-lock.json";
@@ -35,8 +37,8 @@ namespace ZitgaPackageManager.Editors
         private readonly GUILayoutOption buttonWidth = GUILayout.Width(60);
         private readonly GUILayoutOption buttonHeight = GUILayout.Height(25);
 
-        private readonly Dictionary<string, ProviderModel> providersSet = new Dictionary<string, ProviderModel>();
-        private readonly Dictionary<string, ProviderModel> providersLocal = new Dictionary<string, ProviderModel>();
+        private Dictionary<string, ProviderModel> providersSet = new Dictionary<string, ProviderModel>();
+        private Dictionary<string, ProviderModel> providersLocal = new Dictionary<string, ProviderModel>();
         private ZBaseEditorCoroutines mEditorCoroutines;
         private int progressLoadData = 0;
         private bool isProcessing;
@@ -144,8 +146,7 @@ namespace ZitgaPackageManager.Editors
         private void CheckVersion()
         {
             progressLoadData = 0;
-
-            GetPackageLockServer();
+            GetPackageIdConfig();
             mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetVersionFromPackageLockLocal());
         }
 
@@ -677,6 +678,11 @@ namespace ZitgaPackageManager.Editors
         #endregion
 
         #region Http       
+        private void GetPackageIdConfig()
+        {
+            string urlPackageIdConfig = string.Format(PackIdConfigURL, ZBasePackageIdConfig.Repo);
+            mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackageIdConfig, (result) => GetDataFromPackageConfig(result)));
+        }
         private void GetPackageLockServer()
         {
             string urlPackageLock = string.Format(PackLockURL, ZBasePackageIdConfig.Repo);
@@ -807,6 +813,29 @@ namespace ZitgaPackageManager.Editors
 
         #region Parse Data
         // server       
+        private void GetDataFromPackageConfig(Dictionary<string, object> data)
+        {
+            ZBasePackageIdConfig.ListPackages.Clear();
+
+            try
+            {
+                if (data.Count > 0)
+                {
+                    foreach (var item in data)
+                    {
+                        ZBasePackageIdConfig.ListPackages.Add(item.Key, item.Value.ToString());
+                    }
+                }
+
+                progressLoadData++;
+                GetPackageLockServer();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error Get Version From Package Lock Server: " + e.Message);
+            }
+        }
+
         private void GetDataFromPackageLockServer(Dictionary<string, object> data)
         {
             providersSet.Clear();
@@ -819,8 +848,6 @@ namespace ZitgaPackageManager.Editors
                 {
                     if (dependencies != null)
                     {
-                        Dictionary<string, object> listPackages = dependencies as Dictionary<string, object>;
-
                         foreach (var item in dependencies as Dictionary<string, object>)
                         {
                             ProviderModel info = new ProviderModel();
@@ -869,7 +896,6 @@ namespace ZitgaPackageManager.Editors
                 {
                     if (dependencies != null)
                     {
-                        Dictionary<string, object> listPackages = dependencies as Dictionary<string, object>;
 
                         foreach (var item in dependencies as Dictionary<string, object>)
                         {
@@ -920,24 +946,14 @@ namespace ZitgaPackageManager.Editors
 
                                 providersLocal.Add(info.providerName, info);
 
-                                //if (item.Key.StartsWith("com"))
-                                //{
-
-                                //}
-                                //else
-                                //{
-                                //    string pathPackage = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, item.Key);
-                                //    ProviderModel info = new ProviderModel(item.Key, item.Value, "", "", CheckFileExist(pathPackage) ? ZBaseEnum.Status.installed : ZBaseEnum.Status.none,
-                                //        ZBaseEnum.Source.package, string.Format(PackDownloadURL, ZBasePackageIdConfig.Repo, item.Key));
-                                //    providersLocal.Add(info.providerName, info);
-                                //}
-
                                 Debug.Log(string.Format(">>>Package {0} not install<<<", info.displayProviderName));
                             }
                         }
 
                     }
                 }
+
+                SortListLocal();
 
                 Repaint();
             }
@@ -1067,6 +1083,11 @@ namespace ZitgaPackageManager.Editors
         private bool CheckFileExist(string pathFile)
         {
             return File.Exists(pathFile);
+        }
+
+        private void SortListLocal()
+        {
+            providersLocal = providersLocal.OrderBy(item => item.Value.displayProviderName).ToDictionary(item => item.Key, item => item.Value);
         }
         #endregion
     }

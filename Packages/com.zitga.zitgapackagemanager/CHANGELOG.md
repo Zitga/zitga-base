@@ -17,3 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.1.8] - 2020-10-30
  
 ### Restructure package *\<Casual UI System\>*.
+
+## [0.1.9] - 2020-11-02
+ 
+### Modify logic package *\<Zitga Package Manager\>*.

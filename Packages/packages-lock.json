@@ -168,6 +168,12 @@
         "zitga.externaldependencyunity": ""
       }
     },
+    "zitga.ironsourcemediation": {
+      "version": "file:zitga.ironsourcemediation",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "zitga.logviewer": {
       "version": "file:zitga.logviewer",
       "depth": 0,
