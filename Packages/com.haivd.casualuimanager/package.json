@@ -14,7 +14,7 @@
     {
       "displayName": "Summoners Era",
       "description": "Use art of Summoners Era to demo game. Some features: ",
-      "path": "Samples/SE"
+      "path": "Runtime/Samples/SE"
     }
   ]
 }
