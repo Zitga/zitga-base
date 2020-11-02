@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.UnityIap.Editor",
+    "references": [
+      "Zitga.UnityIap"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
