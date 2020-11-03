@@ -523,31 +523,40 @@ namespace ZitgaPackageManager.Editors
             {
                 string urlDownload = "";
                 isRegistry = false;
-                providerSever = providersSet[item];
 
-                ZBaseEditorCoroutines.StartEditorCoroutine(SearchPackage(item, (resultSearch) =>
+                if (providersSet.Keys.Contains(item))
                 {
-                    if (resultSearch != null)
+                    providerSever = providersSet[item];
+
+                    ZBaseEditorCoroutines.StartEditorCoroutine(SearchPackage(item, (resultSearch) =>
                     {
-                        if (resultSearch.Result.Length > 0)
-                            isRegistry = true;
+                        if (resultSearch != null)
+                        {
+                            if (resultSearch.Result.Length > 0)
+                                isRegistry = true;
+                        }
+                    }));
+
+                    if (isRegistry)
+                    {
+                        urlDownload = item;
+
                     }
-                }));
-
-                if (isRegistry)
-                {
-                    urlDownload = item;
-
+                    else
+                    {
+                        if (providerSever.source == ZBaseEnum.Source.git)
+                            urlDownload = providerSever.downloadURL + string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
+                        else if (providerSever.source == ZBaseEnum.Source.embedded)
+                            urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerSever.providerName);
+                        else if (providerSever.source == ZBaseEnum.Source.registry)
+                            urlDownload = providerSever.providerName;
+                    }
                 }
                 else
                 {
-                    if (providerSever.source == ZBaseEnum.Source.git)
-                        urlDownload = providerSever.downloadURL + string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
-                    else if (providerSever.source == ZBaseEnum.Source.embedded)
-                        urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerSever.providerName);
-                    else if (providerSever.source == ZBaseEnum.Source.registry)
-                        urlDownload = providerSever.providerName;
+                    urlDownload = item;
                 }
+
 
                 urlQueue.Enqueue(urlDownload);
             }
