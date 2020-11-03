@@ -10,6 +10,7 @@ using UnityEngine.Networking;
 using ZBaseJsonHelper;
 using ZitgaPackageManager.Models;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace ZitgaPackageManager.Editors
 {
@@ -30,6 +31,7 @@ namespace ZitgaPackageManager.Editors
         private const string PackCacheLocalDir = "Library/PackageCache/{0}@{1}/package.json";
         private const string PackManagerDownloadDir = "Library/PackageCache/{0}@{1}/{2}";
         private const string InstallPackLocalDir = "Library/PackageCache/{0}@{1}/FilePackage/{2}.unitypackage";
+        private const string ManifestURL = "Packages/manifest.json";
 
         private GUIStyle headerStyle;
         private GUIStyle textStyle;
@@ -955,6 +957,7 @@ namespace ZitgaPackageManager.Editors
 
                 SortListLocal();
 
+                ScopedRegistryConfig();
                 Repaint();
             }
             catch (Exception e)
@@ -1088,6 +1091,81 @@ namespace ZitgaPackageManager.Editors
         private void SortListLocal()
         {
             providersLocal = providersLocal.OrderBy(item => item.Value.displayProviderName).ToDictionary(item => item.Key, item => item.Value);
+        }
+        #endregion
+
+        #region Scope
+        private void ScopedRegistryConfig()
+        {
+            AddScopedRegistry(ZBasePackageIdConfig.ScopesGoogle);
+        }
+
+        internal void AddScopedRegistry(ScopedRegistry registry)
+        {
+            JObject manifestJSON = JObject.Parse(File.ReadAllText(ManifestURL));
+
+            if (!CheckScopeExist(registry, manifestJSON))
+            {
+                AddOrCreateScopedRegistry(registry, manifestJSON);
+                write(manifestJSON);
+            }            
+
+        }
+
+        private bool CheckScopeExist(ScopedRegistry registry, JObject manifestJSON)
+        {
+            JArray Jregistries = (JArray)manifestJSON["scopedRegistries"];
+            if (Jregistries == null)
+            {
+                return false;
+            }
+
+            foreach (var JRegistryElement in Jregistries)
+            {
+
+                if (JRegistryElement["name"] != null && JRegistryElement["url"] != null)
+                {
+
+                    if (String.Equals(JRegistryElement["name"].ToString(), registry.name) && String.Equals(JRegistryElement["url"].ToString(), registry.url))
+                    {
+                        return true;
+                    };
+                }
+            }
+
+            return false;
+        }
+
+        private void AddOrCreateScopedRegistry(ScopedRegistry registry, JObject manifestJSON)
+        {
+            JArray Jregistries = (JArray)manifestJSON["scopedRegistries"];
+            if (Jregistries == null)
+            {
+                Jregistries = new JArray();
+                manifestJSON["scopedRegistries"] = Jregistries;
+            }
+
+            JObject JRegistry = new JObject();
+            JRegistry["name"] = registry.name;
+            JRegistry["url"] = registry.url;
+            UpdateScope(registry, JRegistry);
+            Jregistries.Add(JRegistry);
+        }
+
+        private void UpdateScope(ScopedRegistry registry, JToken registryElement)
+        {
+            JArray scopes = new JArray();
+            foreach (var scope in registry.scopes)
+            {
+                scopes.Add(scope);
+            }
+            registryElement["scopes"] = scopes;
+        }
+
+        private void write(JObject manifestJSON)
+        {
+            File.WriteAllText(ManifestURL, manifestJSON.ToString());
+            AssetDatabase.Refresh();
         }
         #endregion
     }

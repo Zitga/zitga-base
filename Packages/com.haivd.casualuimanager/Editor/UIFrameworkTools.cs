@@ -10,13 +10,13 @@ namespace deVoid.UIFramework.Editor
 {
     public static class UIFrameworkTools
     {
-        [MenuItem("ZitgaBase/Create/UIFrame Landscape", priority = 1)]
+        [MenuItem("ZitgaBase/Create/UIFrame Landscape", false, 5)]
         public static void CreateUIFrameLandscapeInScene()
         {
             CreateUIFrameLandscape();
         }
 
-        [MenuItem("ZitgaBase/Create/UIFrame Portrait", priority = 2)]
+        [MenuItem("ZitgaBase/Create/UIFrame Portrait", false, 6)]
         public static void CreateUIFramePortraitInScene()
         {
             CreateUIFramePortrait();
