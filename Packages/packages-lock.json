@@ -14,6 +14,42 @@
       "dependencies": {},
       "url": "https://unityregistry-pa.googleapis.com"
     },
+    "com.google.firebase.analytics": {
+      "version": "6.16.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.google.firebase.app": "6.16.1"
+      },
+      "url": "https://unityregistry-pa.googleapis.com"
+    },
+    "com.google.firebase.app": {
+      "version": "6.16.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.google.external-dependency-manager": "1.2.161"
+      },
+      "url": "https://unityregistry-pa.googleapis.com"
+    },
+    "com.google.firebase.crashlytics": {
+      "version": "6.16.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.google.firebase.app": "6.16.1"
+      },
+      "url": "https://unityregistry-pa.googleapis.com"
+    },
+    "com.google.firebase.messaging": {
+      "version": "6.16.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.google.firebase.app": "6.16.1"
+      },
+      "url": "https://unityregistry-pa.googleapis.com"
+    },
     "com.haivd.casualuimanager": {
       "version": "file:com.haivd.casualuimanager",
       "depth": 0,
@@ -123,6 +159,17 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.zitga.trackingfirebase": {
+      "version": "file:com.zitga.trackingfirebase",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.google.external-dependency-manager": "",
+        "com.google.firebase.analytics": "",
+        "com.google.firebase.messaging": "",
+        "com.google.firebase.crashlytics": ""
+      }
+    },
     "com.zitga.zitgapackagemanager": {
       "version": "file:com.zitga.zitgapackagemanager",
       "depth": 0,
@@ -165,7 +212,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "zitga.externaldependencyunity": ""
+        "com.google.external-dependency-manager": ""
       }
     },
     "zitga.ironsourcemediation": {
