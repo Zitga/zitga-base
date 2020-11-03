@@ -11,27 +11,27 @@ namespace ZUnityIAP
         public static void ConfigDefineForUnityIAP()
         {
             BuildTargetGroup buildTarget = BuildTargetGroup.Standalone;
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                buildTarget = BuildTargetGroup.Android;
-            }
-            else if (Application.platform == RuntimePlatform.IPhonePlayer)
-            {
+#if UNITY_ANDROID
+            buildTarget = BuildTargetGroup.Android;
+#elif UNITY_IOS
                 buildTarget = BuildTargetGroup.iOS;
-            }
+#endif
 
-            string currDefine = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTarget);
+            string defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTarget);
 
-            if (currDefine.Length <= 0)
+            if (!defines.Contains("UNITY_IAP"))
             {
-                currDefine = "UNITY_IAP";
-            }
-            else
-            {
-                currDefine += ";UNITY_IAP";
-            }
+                if (defines.Length <= 0)
+                {
+                    defines = "UNITY_IAP";
+                }
+                else
+                {
+                    defines += ";UNITY_IAP";
+                }
 
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTarget, currDefine);
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTarget, defines);
+            }
         }
     }
 }
