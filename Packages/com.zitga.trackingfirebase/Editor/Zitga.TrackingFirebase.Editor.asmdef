@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.TrackingFirebase.Editor",
+    "references": [
+      "Zitga.TrackingFirebase"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

@@ -8,6 +8,6 @@
     "name": "Zitga"
   },
   "dependencies": {
-    "zitga.externaldependencyunity": ""
+    "com.google.external-dependency-manager": ""
   }
 }
