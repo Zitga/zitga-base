@@ -1,0 +1,14 @@
+{
+    "name": "Zitga.UnityIap.Editor.Tests",
+    "references": [
+        "Zitga.UnityIap.Editor",
+        "Zitga.UnityIap"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

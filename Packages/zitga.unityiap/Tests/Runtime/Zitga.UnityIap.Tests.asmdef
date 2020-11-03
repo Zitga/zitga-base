@@ -1,0 +1,11 @@
+{
+    "name": "Zitga.UnityIap.Tests",
+    "references": [
+        "Zitga.UnityIap"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
