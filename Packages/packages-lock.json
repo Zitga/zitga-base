@@ -227,6 +227,14 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "zitga.trackingappsflyer": {
+      "version": "file:zitga.trackingappsflyer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.google.external-dependency-manager": ""
+      }
+    },
     "zitga.unityiap": {
       "version": "file:zitga.unityiap",
       "depth": 0,

@@ -1,13 +1,13 @@
 using System.Text;
 using UnityEditor;
 
-namespace Zitga.TrackingFirebase.Editor
+namespace Zitga.TrackingAppsflyer.Editor
 {
-    public class TrackingFirebaseEditor
+    public class TrackingAppsflyerEditor
     {
-        const string DEFINE_FIREBASE = "TRACKING_FIREBASE";
+        const string DEFINE_APPSFLYER = "TRACKING_APPSFLYER";
 
-        [MenuItem("ZitgaBase/Tracking Firebase/Enable Tracking", false, 1)]
+        [MenuItem("ZitgaBase/Tracking Appsflyer/Enable Tracking", false, 9)]
         public static void EnableTracking()
         {
             BuildTargetGroup buildTarget = BuildTargetGroup.Standalone;
@@ -19,22 +19,22 @@ namespace Zitga.TrackingFirebase.Editor
 
             string defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTarget);
 
-            if (!defines.Contains(DEFINE_FIREBASE))
+            if (!defines.Contains(DEFINE_APPSFLYER))
             {
                 if (defines.Length <= 0)
                 {
-                    defines = DEFINE_FIREBASE;
+                    defines = DEFINE_APPSFLYER;
                 }
                 else
                 {
-                    defines = defines + ";" + DEFINE_FIREBASE;
+                    defines = defines + ";" + DEFINE_APPSFLYER;
                 }
 
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTarget, defines);
             }
         }
 
-        [MenuItem("ZitgaBase/Tracking Firebase/Disable Tracking", false, 2)]
+        [MenuItem("ZitgaBase/Tracking Appsflyer/Disable Tracking", false, 10)]
         public static void DisableTracking()
         {
             BuildTargetGroup buildTarget = BuildTargetGroup.Standalone;
@@ -47,7 +47,7 @@ namespace Zitga.TrackingFirebase.Editor
             string defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTarget);
             StringBuilder newDefines = new StringBuilder();
 
-            if (defines.Contains(DEFINE_FIREBASE))
+            if (defines.Contains(DEFINE_APPSFLYER))
             {
                 string[] arrDefine = defines.Split(';');
                 if (arrDefine != null)
@@ -60,7 +60,7 @@ namespace Zitga.TrackingFirebase.Editor
                     {
                         foreach (var item in arrDefine)
                         {
-                            if (item.Equals(DEFINE_FIREBASE))
+                            if (item.Equals(DEFINE_APPSFLYER))
                             {
                                 continue;
                             }
