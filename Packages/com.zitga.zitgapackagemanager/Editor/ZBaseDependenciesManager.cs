@@ -488,7 +488,7 @@ namespace ZitgaPackageManager.Editors
 
             foreach (var item in providersSet[providerInfo.providerName].dependencies)
             {
-                if (providersLocal[item.Key].currentStatues != ZBaseEnum.Status.none)
+                if (providersLocal.Keys.Contains(item.Key) && providersLocal[item.Key].currentStatues != ZBaseEnum.Status.none)
                 {
                     continue;
                 }
@@ -1108,7 +1108,7 @@ namespace ZitgaPackageManager.Editors
             {
                 AddOrCreateScopedRegistry(registry, manifestJSON);
                 write(manifestJSON);
-            }            
+            }
 
         }
 
