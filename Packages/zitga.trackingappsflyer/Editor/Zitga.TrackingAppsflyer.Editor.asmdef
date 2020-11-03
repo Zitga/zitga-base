@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.TrackingAppsflyer.Editor",
+    "references": [
+      "Zitga.TrackingAppsflyer"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

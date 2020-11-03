@@ -8,9 +8,10 @@
   "zitga.logviewer": "Log_Viewer",
   "zitga.facebook": "Facebook_Unity_Sdk",
   "com.haivd.casualuimanager": "Casual UI Manager",
-  "zitga.google.googleplaygames": "GooglePlayGamesPlugin",
+  "zitga.google.googleplaygames": "Google_Play_Games_Plugin",
   "zitga.ironsourcemediation": "IronSource_IntegrationManager",
   "zitga.unityiap": "Unity_IAP",
   "com.zitga.trackingfirebase": "Tracking Firebase",
-  "com.google.external-dependency-manager":"External Dependencies Manager"
+  "com.google.external-dependency-manager":"External Dependencies Manager",
+  "zitga.trackingappsflyer":"Tracking_Appsflyer"
 }

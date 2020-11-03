@@ -52,6 +52,7 @@ namespace ZitgaPackageManager.Editors
         private Queue<string> urlQueue = new Queue<string>();
         private bool isAddMultiPkg = false;
 
+        private ProviderModel packageImport;
         public static void ShowZBaseDependenciesManager()
         {
             var win = GetWindowWithRect<ZBaseDependenciesManager>(new Rect(0, 0, Width, Height), true);
@@ -343,6 +344,7 @@ namespace ZitgaPackageManager.Editors
                         {
                             Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
                             canRefresh = true;
+                            packageImport = providerData;
                         }
                     }));
                     }
@@ -355,14 +357,10 @@ namespace ZitgaPackageManager.Editors
                                 Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
                                 EditorApplication.UnlockReloadAssemblies();
                                 canRefresh = true;
+                                packageImport = providerData;
                             }
                         }));
                     }
-                    //ZBaseEditorCoroutines.StartEditorCoroutine(DownloadFile(providerData.downloadURL, providerData.providerName, () =>
-                    //{
-                    //    AssetDatabase.Refresh();
-                    //    canRefresh = true;
-                    //}));
                 }
                 catch (System.Exception e)
                 {
@@ -523,31 +521,40 @@ namespace ZitgaPackageManager.Editors
             {
                 string urlDownload = "";
                 isRegistry = false;
-                providerSever = providersSet[item];
 
-                ZBaseEditorCoroutines.StartEditorCoroutine(SearchPackage(item, (resultSearch) =>
+                if (providersSet.Keys.Contains(item))
                 {
-                    if (resultSearch != null)
+                    providerSever = providersSet[item];
+
+                    ZBaseEditorCoroutines.StartEditorCoroutine(SearchPackage(item, (resultSearch) =>
                     {
-                        if (resultSearch.Result.Length > 0)
-                            isRegistry = true;
+                        if (resultSearch != null)
+                        {
+                            if (resultSearch.Result.Length > 0)
+                                isRegistry = true;
+                        }
+                    }));
+
+                    if (isRegistry)
+                    {
+                        urlDownload = item;
+
                     }
-                }));
-
-                if (isRegistry)
-                {
-                    urlDownload = item;
-
+                    else
+                    {
+                        if (providerSever.source == ZBaseEnum.Source.git)
+                            urlDownload = providerSever.downloadURL + string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
+                        else if (providerSever.source == ZBaseEnum.Source.embedded)
+                            urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerSever.providerName);
+                        else if (providerSever.source == ZBaseEnum.Source.registry)
+                            urlDownload = providerSever.providerName;
+                    }
                 }
                 else
                 {
-                    if (providerSever.source == ZBaseEnum.Source.git)
-                        urlDownload = providerSever.downloadURL + string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
-                    else if (providerSever.source == ZBaseEnum.Source.embedded)
-                        urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerSever.providerName);
-                    else if (providerSever.source == ZBaseEnum.Source.registry)
-                        urlDownload = providerSever.providerName;
+                    urlDownload = item;
                 }
+
 
                 urlQueue.Enqueue(urlDownload);
             }
@@ -964,6 +971,14 @@ namespace ZitgaPackageManager.Editors
             {
                 Debug.Log("Error Get Version From Package Lock Local: " + e.Message);
             }
+
+            yield return new WaitForSeconds(1f);
+            if (packageImport != null)
+            {
+                ImportPackage(packageImport);
+                packageImport = null;
+            }
+
         }
 
         private void LoadPackageFromLocal(string namePackage, System.Action<Dictionary<string, object>> callback)
