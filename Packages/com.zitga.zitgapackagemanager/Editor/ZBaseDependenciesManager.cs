@@ -36,8 +36,9 @@ namespace ZitgaPackageManager.Editors
         private GUIStyle headerStyle;
         private GUIStyle textStyle;
         private GUIStyle textVersionStyle;
-        private readonly GUILayoutOption buttonWidth = GUILayout.Width(60);
+        private readonly GUILayoutOption buttonWidth = GUILayout.Width(70);
         private readonly GUILayoutOption buttonHeight = GUILayout.Height(25);
+        private Vector2 scrollPos;
 
         private Dictionary<string, ProviderModel> providersSet = new Dictionary<string, ProviderModel>();
         private Dictionary<string, ProviderModel> providersLocal = new Dictionary<string, ProviderModel>();
@@ -52,7 +53,6 @@ namespace ZitgaPackageManager.Editors
         private Queue<string> urlQueue = new Queue<string>();
         private bool isAddMultiPkg = false;
 
-        private ProviderModel packageImport;
         public static void ShowZBaseDependenciesManager()
         {
             var win = GetWindowWithRect<ZBaseDependenciesManager>(new Rect(0, 0, Width, Height), true);
@@ -79,6 +79,7 @@ namespace ZitgaPackageManager.Editors
                 fontStyle = FontStyle.Normal,
                 clipping = TextClipping.Overflow,
                 alignment = TextAnchor.MiddleLeft,
+                fixedHeight = 25,
             };
 
             textVersionStyle = new GUIStyle(EditorStyles.label)
@@ -87,8 +88,10 @@ namespace ZitgaPackageManager.Editors
                 clipping = TextClipping.Overflow,
                 alignment = TextAnchor.MiddleLeft,
                 padding = new RectOffset(50, 100, 0, 0),
+                fixedHeight = 25,
             };
 
+            EditorPrefs.SetString("key_package_import", string.Empty);
             CheckVersion();
 
         }
@@ -116,6 +119,7 @@ namespace ZitgaPackageManager.Editors
             DrawPackageHeader();
             GUILayout.Space(15);
 
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUIStyle.none, GUI.skin.verticalScrollbar, GUILayout.Width(1000), GUILayout.Height(400));
             foreach (var provider in providersLocal)
             {
                 if (provider.Value.providerName == ZBasePackageIdConfig.NamePackageManager)
@@ -124,6 +128,7 @@ namespace ZitgaPackageManager.Editors
                 DrawProviderItem(provider.Value);
                 GUILayout.Space(2);
             }
+            EditorGUILayout.EndScrollView();
 
             GUILayout.FlexibleSpace();
             using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(false)))
@@ -209,7 +214,7 @@ namespace ZitgaPackageManager.Editors
                 EditorGUILayout.LabelField("Package", headerStyle);
                 EditorGUILayout.LabelField("Current Package Version", headerStyle);
                 EditorGUILayout.LabelField("Latest Package Version", headerStyle);
-                GUILayout.Space(40);
+                GUILayout.Space(25);
                 EditorGUILayout.LabelField("Action", headerStyle);
             }
         }
@@ -242,6 +247,7 @@ namespace ZitgaPackageManager.Editors
                     {
                         if (providerData.currentStatues == ZBaseEnum.Status.none)
                         {
+                            GUILayout.Space(35);
                             if (providerData.providerName.StartsWith("com"))
                             {
                                 InstallButton(providerData);
@@ -250,6 +256,7 @@ namespace ZitgaPackageManager.Editors
                             {
                                 DownloadButton(providerData);
                             }
+                            GUILayout.Space(35);
                         }
                         else if (providerData.currentStatues == ZBaseEnum.Status.installed)
                         {
@@ -329,7 +336,7 @@ namespace ZitgaPackageManager.Editors
             bool btn = GUILayout.Button(new GUIContent
             {
                 text = "Download",
-            }, GUILayout.ExpandWidth(false), buttonHeight);
+            }, buttonWidth, buttonHeight);
             if (btn && !isProcessing)
             {
                 GUI.enabled = true;
@@ -339,14 +346,14 @@ namespace ZitgaPackageManager.Editors
                     if (providersSet[providerData.providerName].dependencies.Count == 0)
                     {
                         ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
-                    {
-                        if (result.Status == StatusCode.Success)
                         {
-                            Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                            canRefresh = true;
-                            packageImport = providerData;
-                        }
-                    }));
+                            if (result.Status == StatusCode.Success)
+                            {
+                                Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                canRefresh = true;
+                                EditorPrefs.SetString("key_package_import", providerData.providerName);
+                            }
+                        }));
                     }
                     else
                     {
@@ -357,7 +364,7 @@ namespace ZitgaPackageManager.Editors
                                 Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
                                 EditorApplication.UnlockReloadAssemblies();
                                 canRefresh = true;
-                                packageImport = providerData;
+                                EditorPrefs.SetString("key_package_import", providerData.providerName);
                             }
                         }));
                     }
@@ -432,7 +439,7 @@ namespace ZitgaPackageManager.Editors
             bool btn = GUILayout.Button(new GUIContent
             {
                 text = "Import",
-            }, GUILayout.ExpandWidth(false), buttonHeight);
+            }, buttonWidth, buttonHeight);
             if (btn && !isProcessing)
             {
                 GUI.enabled = true;
@@ -461,14 +468,18 @@ namespace ZitgaPackageManager.Editors
                 try
                 {
                     Debug.LogWarning(">>>>>>>>> Remove Click! <<<<<<<<<<");
-                    ZBaseEditorCoroutines.StartEditorCoroutine(RemovePackage(providerData.providerName, (result) =>
+
+                    if (EditorUtility.DisplayDialog("Remove Package", "Are you sure you want to remove this package?", "Remove", "Cancle"))
                     {
-                        if (result.Status == StatusCode.Success)
+                        ZBaseEditorCoroutines.StartEditorCoroutine(RemovePackage(providerData.providerName, (result) =>
                         {
-                            Debug.Log(string.Format("***Remove Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                            canRefresh = true;
-                        }
-                    }));
+                            if (result.Status == StatusCode.Success)
+                            {
+                                Debug.Log(string.Format("***Remove Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                canRefresh = true;
+                            }
+                        }));
+                    }
                 }
                 catch (System.Exception e)
                 {
@@ -965,19 +976,21 @@ namespace ZitgaPackageManager.Editors
                 SortListLocal();
 
                 ScopedRegistryConfig();
-                Repaint();
             }
             catch (Exception e)
             {
                 Debug.Log("Error Get Version From Package Lock Local: " + e.Message);
             }
 
-            yield return new WaitForSeconds(1f);
-            if (packageImport != null)
+            var packageImport = EditorPrefs.GetString("key_package_import", string.Empty);
+            if (!string.IsNullOrEmpty(packageImport))
             {
-                ImportPackage(packageImport);
-                packageImport = null;
+                if (providersSet.Keys.Contains(packageImport))
+                    ImportPackage(providersSet[packageImport]);
+                EditorPrefs.SetString("key_package_import", string.Empty);
             }
+
+            Repaint();
 
         }
 
