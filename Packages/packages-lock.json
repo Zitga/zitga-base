@@ -164,7 +164,6 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.google.external-dependency-manager": "",
         "com.google.firebase.analytics": "",
         "com.google.firebase.messaging": "",
         "com.google.firebase.crashlytics": ""
@@ -211,9 +210,7 @@
       "version": "file:zitga.google.googleplaygames",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {
-        "com.google.external-dependency-manager": ""
-      }
+      "dependencies": {}
     },
     "zitga.ironsourcemediation": {
       "version": "file:zitga.ironsourcemediation",
@@ -231,9 +228,7 @@
       "version": "file:zitga.trackingappsflyer",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {
-        "com.google.external-dependency-manager": ""
-      }
+      "dependencies": {}
     },
     "zitga.unityiap": {
       "version": "file:zitga.unityiap",
