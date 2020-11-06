@@ -20,7 +20,7 @@ namespace ZitgaPackageManager.Models
 
         public ProviderModel ShallowCopy()
         {
-            return (ProviderModel)this.MemberwiseClone();
+            return (ProviderModel) this.MemberwiseClone();
         }
 
 
@@ -34,7 +34,8 @@ namespace ZitgaPackageManager.Models
             dependencies = new Dictionary<string, string>();
         }
 
-        public ProviderModel(string providerName, string displayName, string currVer, string lastVer, ZBaseEnum.Status currStatus, ZBaseEnum.Source source, string urlDownload = "")
+        public ProviderModel(string providerName, string displayName, string currVer, string lastVer,
+            ZBaseEnum.Status currStatus, ZBaseEnum.Source source, string urlDownload = "")
         {
             this.providerName = providerName;
             this.displayProviderName = displayName;
@@ -44,7 +45,6 @@ namespace ZitgaPackageManager.Models
             this.source = source;
             this.downloadURL = urlDownload;
         }
-
 
 
         public bool GetFromJson(string name, Dictionary<string, object> dic)
@@ -62,6 +62,7 @@ namespace ZitgaPackageManager.Models
                     this.source = result;
                 }
             }
+
             //display name
             if (ZBasePackageIdConfig.ListPackages.ContainsKey(name))
                 this.displayProviderName = ZBasePackageIdConfig.ListPackages[name];
@@ -84,14 +85,15 @@ namespace ZitgaPackageManager.Models
                     }
                 }
             }
+
             //hash
             dic.TryGetValue("hash", out obj);
             if (obj != null)
             {
-
                 this.hash = obj as string;
                 this.hash = this.hash.Remove(10);
             }
+
             //dependencies
             dic.TryGetValue("dependencies", out obj);
             if (obj != null)
@@ -116,15 +118,15 @@ namespace ZitgaPackageManager.Models
                     {
                         this.currentUnityVersion = this.latestUnityVersion = item.Value as string;
                     }
-
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Error parse tool version info " + e.ToString());
+                    ZLog.Error("Error parse tool version info " + e.ToString());
                 }
             }
 
-            Debug.Log(string.Format("***Pack {0} on server, version {1}***", this.displayProviderName, this.latestUnityVersion));
+            ZLog.Info(string.Format("***Pack {0} on server, version {1}***", this.displayProviderName,
+                this.latestUnityVersion));
         }
 
         public void GetVersionInfoFromLocal(Dictionary<string, object> data)
@@ -137,15 +139,15 @@ namespace ZitgaPackageManager.Models
                     {
                         this.currentUnityVersion = item.Value as string;
                     }
-
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Error parse tool version info " + e.ToString());
+                    ZLog.Error("Error parse tool version info " + e.ToString());
                 }
             }
 
-            Debug.Log(string.Format("***Pack {0} on local, version {1}***", this.displayProviderName, this.currentUnityVersion));
+            ZLog.Info(string.Format("***Pack {0} on local, version {1}***", this.displayProviderName,
+                this.currentUnityVersion));
         }
     }
 }
