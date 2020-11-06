@@ -22,8 +22,13 @@ namespace ZitgaPackageManager.Editors
         private const string InstallURL = "https://github.com/Zitga/{0}.git?path=Packages/{1}";
         private const string PackLockURL = "https://github.com/Zitga/{0}/raw/master/Packages/packages-lock.json";
         private const string PackVersionURL = "https://github.com/Zitga/{0}/raw/master/Packages/{1}/package.json";
-        private const string PackDownloadURL = "https://github.com/Zitga/{0}/raw/master/Assets/PackageManagerDownload/{1}";
-        private const string PackIdConfigURL = "https://github.com/Zitga/{0}/raw/master/Assets/AssetConfig/package_id_config.json";
+
+        private const string PackDownloadURL =
+            "https://github.com/Zitga/{0}/raw/master/Assets/PackageManagerDownload/{1}";
+
+        private const string PackIdConfigURL =
+            "https://github.com/Zitga/{0}/raw/master/Assets/AssetConfig/package_id_config.json";
+
         //
         private const string SuffixesVersionGitURL = "#{0}";
         private const string PackLockLocalDir = "Packages/packages-lock.json";
@@ -93,7 +98,6 @@ namespace ZitgaPackageManager.Editors
 
             EditorPrefs.SetString("key_package_import", string.Empty);
             CheckVersion();
-
         }
 
         void OnDestroy()
@@ -119,7 +123,8 @@ namespace ZitgaPackageManager.Editors
             DrawPackageHeader();
             GUILayout.Space(15);
 
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUIStyle.none, GUI.skin.verticalScrollbar, GUILayout.Width(1000), GUILayout.Height(400));
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUIStyle.none, GUI.skin.verticalScrollbar,
+                GUILayout.Width(1000), GUILayout.Height(400));
             foreach (var provider in providersLocal)
             {
                 if (provider.Value.providerName == ZBasePackageIdConfig.NamePackageManager)
@@ -128,6 +133,7 @@ namespace ZitgaPackageManager.Editors
                 DrawProviderItem(provider.Value);
                 GUILayout.Space(2);
             }
+
             EditorGUILayout.EndScrollView();
 
             GUILayout.FlexibleSpace();
@@ -145,12 +151,13 @@ namespace ZitgaPackageManager.Editors
         {
             if (canRefresh)
             {
-                Debug.Log("**********Refresh*************");
+                ZLog.Info("**********Refresh*************");
                 Refresh();
             }
         }
 
         #region Funnction
+
         private void CheckVersion()
         {
             progressLoadData = 0;
@@ -175,10 +182,12 @@ namespace ZitgaPackageManager.Editors
             CancelDownload();
             CheckVersion();
         }
+
         #endregion
 
 
         #region UI General
+
         private void DrawToolHeader()
         {
             using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(false)))
@@ -248,33 +257,27 @@ namespace ZitgaPackageManager.Editors
                         if (providerData.currentStatues == ZBaseEnum.Status.none)
                         {
                             GUILayout.Space(35);
-                            if (providerData.providerName.StartsWith("com"))
-                            {
-                                InstallButton(providerData);
-                            }
-                            else
-                            {
-                                DownloadButton(providerData);
-                            }
+                            InstallButton(providerData);
                             GUILayout.Space(35);
                         }
                         else if (providerData.currentStatues == ZBaseEnum.Status.installed)
                         {
+                            UpdatedButton(providerData);
+                        }
+                        else
+                        {
                             if (providerData.providerName.StartsWith("com"))
                             {
-                                UpdatedButton(providerData);
+                                UpdateButtonDisable();
                             }
                             else
                             {
                                 ImportButton(providerData);
                             }
                         }
-                        else
-                        {
-                            UpdateButtonDisable();
-                        }
 
-                        if (providerData.currentStatues != ZBaseEnum.Status.none && providerData.providerName != ZBasePackageIdConfig.NamePackageManager)
+                        if (providerData.currentStatues != ZBaseEnum.Status.none &&
+                            providerData.providerName != ZBasePackageIdConfig.NamePackageManager)
                         {
                             RemoveButton(providerData);
                         }
@@ -285,9 +288,11 @@ namespace ZitgaPackageManager.Editors
                 }
             }
         }
+
         #endregion
 
         #region BUTTON
+
         private void InstallButton(ProviderModel providerData)
         {
             bool btn = GUILayout.Button(new GUIContent
@@ -299,15 +304,20 @@ namespace ZitgaPackageManager.Editors
                 GUI.enabled = true;
                 try
                 {
-                    Debug.LogWarning(">>>>>>>>> Install Click! <<<<<<<<<<");
+                    ZLog.Warning(">>>>>>>>> Install Click! <<<<<<<<<<");
                     if (providersSet[providerData.providerName].dependencies.Count == 0)
                     {
                         ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                         {
                             if (result.Status == StatusCode.Success)
                             {
-                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                ZLog.Info(string.Format("***Install Success {0} {1}***", providerData.providerName,
+                                    providerData.latestUnityVersion));
                                 canRefresh = true;
+                                if (!providerData.providerName.StartsWith("com"))
+                                {
+                                    EditorPrefs.SetString("key_package_import", providerData.providerName);
+                                }
                             }
                         }));
                     }
@@ -317,61 +327,21 @@ namespace ZitgaPackageManager.Editors
                         {
                             if (result.Status == StatusCode.Success)
                             {
-                                Debug.Log(string.Format("***Install Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                ZLog.Info(string.Format("***Install Success {0} {1}***", providerData.providerName,
+                                    providerData.latestUnityVersion));
                                 EditorApplication.UnlockReloadAssemblies();
                                 canRefresh = true;
+                                if (!providerData.providerName.StartsWith("com"))
+                                {
+                                    EditorPrefs.SetString("key_package_import", providerData.providerName);
+                                }
                             }
                         }));
                     }
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError("Error " + e.Message);
-                }
-            }
-        }
-
-        private void DownloadButton(ProviderModel providerData)
-        {
-            bool btn = GUILayout.Button(new GUIContent
-            {
-                text = "Download",
-            }, buttonWidth, buttonHeight);
-            if (btn && !isProcessing)
-            {
-                GUI.enabled = true;
-                try
-                {
-                    Debug.LogWarning(">>>>>>>>> Download Click! <<<<<<<<<<");
-                    if (providersSet[providerData.providerName].dependencies.Count == 0)
-                    {
-                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
-                        {
-                            if (result.Status == StatusCode.Success)
-                            {
-                                Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                canRefresh = true;
-                                EditorPrefs.SetString("key_package_import", providerData.providerName);
-                            }
-                        }));
-                    }
-                    else
-                    {
-                        ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
-                        {
-                            if (result.Status == StatusCode.Success)
-                            {
-                                Debug.Log(string.Format("***Download Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                EditorApplication.UnlockReloadAssemblies();
-                                canRefresh = true;
-                                EditorPrefs.SetString("key_package_import", providerData.providerName);
-                            }
-                        }));
-                    }
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogError("Error " + e.Message);
+                    ZLog.Error("Error " + e.Message);
                 }
             }
         }
@@ -397,38 +367,50 @@ namespace ZitgaPackageManager.Editors
                     GUI.enabled = true;
                     try
                     {
-                        Debug.LogWarning(">>>>>>>>> Update Click! <<<<<<<<<<");
+                        ZLog.Warning(">>>>>>>>> Update Click! <<<<<<<<<<");
                         if (providersSet[providerData.providerName].dependencies.Count == 0)
                         {
                             ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerData, (result) =>
                             {
                                 if (result.Status == StatusCode.Success)
                                 {
-                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                    ZLog.Info(string.Format("***Update Success {0} {1}***", providerData.providerName,
+                                        providerData.latestUnityVersion));
                                     canRefresh = true;
+                                    if (!providerData.providerName.StartsWith("com"))
+                                    {
+                                        EditorPrefs.SetString("key_package_import", providerData.providerName);
+                                    }
                                 }
                             }));
                         }
                         else
                         {
-                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData, (result) =>
-                            {
-                                if (result.Status == StatusCode.Success)
+                            ZBaseEditorCoroutines.StartEditorCoroutine(AddPackageWithDependencie(providerData,
+                                (result) =>
                                 {
-                                    Debug.Log(string.Format("***Update Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
-                                    EditorApplication.UnlockReloadAssemblies();
-                                    canRefresh = true;
-                                }
-                            }));
+                                    if (result.Status == StatusCode.Success)
+                                    {
+                                        ZLog.Info(string.Format("***Update Success {0} {1}***",
+                                            providerData.providerName, providerData.latestUnityVersion));
+                                        EditorApplication.UnlockReloadAssemblies();
+                                        canRefresh = true;
+                                        if (!providerData.providerName.StartsWith("com"))
+                                        {
+                                            EditorPrefs.SetString("key_package_import", providerData.providerName);
+                                        }
+                                    }
+                                }));
                         }
                     }
                     catch (System.Exception e)
                     {
-                        Debug.LogError("Error " + e.Message);
+                        ZLog.Error("Error " + e.Message);
                     }
                 }
             }
         }
+
         private void UpdateButtonDisable()
         {
             UpdatedButton(null, true);
@@ -445,12 +427,12 @@ namespace ZitgaPackageManager.Editors
                 GUI.enabled = true;
                 try
                 {
-                    Debug.LogWarning(">>>>>>>>> Import Click! <<<<<<<<<<");
+                    ZLog.Warning(">>>>>>>>> Import Click! <<<<<<<<<<");
                     ImportPackage(providerData);
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("Error " + e.Message);
+                    ZLog.Error("Error " + e.Message);
                 }
             }
         }
@@ -467,15 +449,17 @@ namespace ZitgaPackageManager.Editors
                 GUI.enabled = true;
                 try
                 {
-                    Debug.LogWarning(">>>>>>>>> Remove Click! <<<<<<<<<<");
+                    ZLog.Warning(">>>>>>>>> Remove Click! <<<<<<<<<<");
 
-                    if (EditorUtility.DisplayDialog("Remove Package", "Are you sure you want to remove this package?", "Remove", "Cancle"))
+                    if (EditorUtility.DisplayDialog("Remove Package", "Are you sure you want to remove this package?",
+                        "Remove", "Cancle"))
                     {
                         ZBaseEditorCoroutines.StartEditorCoroutine(RemovePackage(providerData.providerName, (result) =>
                         {
                             if (result.Status == StatusCode.Success)
                             {
-                                Debug.Log(string.Format("***Remove Success {0} {1}***", providerData.providerName, providerData.latestUnityVersion));
+                                ZLog.Info(string.Format("***Remove Success {0} {1}***", providerData.providerName,
+                                    providerData.latestUnityVersion));
                                 canRefresh = true;
                             }
                         }));
@@ -483,13 +467,15 @@ namespace ZitgaPackageManager.Editors
                 }
                 catch (System.Exception e)
                 {
-                    Debug.LogError("Error " + e.Message);
+                    ZLog.Error("Error " + e.Message);
                 }
             }
         }
+
         #endregion
 
         #region Action
+
         private IEnumerator AddPackageWithDependencie(ProviderModel providerInfo, System.Action<AddRequest> callback)
         {
             pkgNameQueue.Clear();
@@ -497,10 +483,12 @@ namespace ZitgaPackageManager.Editors
 
             foreach (var item in providersSet[providerInfo.providerName].dependencies)
             {
-                if (providersLocal.Keys.Contains(item.Key) && providersLocal[item.Key].currentStatues != ZBaseEnum.Status.none)
+                if (providersLocal.Keys.Contains(item.Key) &&
+                    providersLocal[item.Key].currentStatues != ZBaseEnum.Status.none)
                 {
                     continue;
                 }
+
                 pkgNameQueue.Add(item.Key);
             }
 
@@ -549,14 +537,15 @@ namespace ZitgaPackageManager.Editors
                     if (isRegistry)
                     {
                         urlDownload = item;
-
                     }
                     else
                     {
                         if (providerSever.source == ZBaseEnum.Source.git)
-                            urlDownload = providerSever.downloadURL + string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
+                            urlDownload = providerSever.downloadURL +
+                                          string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
                         else if (providerSever.source == ZBaseEnum.Source.embedded)
-                            urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerSever.providerName);
+                            urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo,
+                                providerSever.providerName);
                         else if (providerSever.source == ZBaseEnum.Source.registry)
                             urlDownload = providerSever.providerName;
                     }
@@ -583,14 +572,15 @@ namespace ZitgaPackageManager.Editors
                 switch (remRequest.Status)
                 {
                     case StatusCode.Failure:
-                        Debug.LogError("Couldn't install package '" + remRequest.Result.displayName + "': " + remRequest.Error.message);
+                        ZLog.Error("Couldn't install package '" + remRequest.Result.displayName + "': " +
+                                   remRequest.Error.message);
                         break;
 
                     case StatusCode.InProgress:
                         break;
 
                     case StatusCode.Success:
-                        Debug.Log("Installed package: " + remRequest.Result.displayName);
+                        ZLog.Info("Installed package: " + remRequest.Result.displayName);
                         break;
                 }
 
@@ -599,11 +589,11 @@ namespace ZitgaPackageManager.Editors
                     remRequest = Client.Add(urlQueue.Dequeue());
                 }
                 else
-                {    // no more packages to remove
+                {
+                    // no more packages to remove
                     EditorApplication.update -= PackageInstallProgress;
                     isAddMultiPkg = false;
                 }
-
             }
         }
 
@@ -614,7 +604,8 @@ namespace ZitgaPackageManager.Editors
             ProviderModel providerSever = providersSet[providerInfo.providerName];
 
             if (providerSever.source == ZBaseEnum.Source.git)
-                urlDownload = providerInfo.downloadURL + string.Format(SuffixesVersionGitURL, providerInfo.latestUnityVersion);
+                urlDownload = providerInfo.downloadURL +
+                              string.Format(SuffixesVersionGitURL, providerInfo.latestUnityVersion);
             else if (providerSever.source == ZBaseEnum.Source.embedded)
                 urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo, providerInfo.providerName);
             else if (providerSever.source == ZBaseEnum.Source.registry)
@@ -631,7 +622,7 @@ namespace ZitgaPackageManager.Editors
 
             if (result.Error != null)
             {
-                Debug.LogError("[Error] Add Fail: " + result.Error.message);
+                ZLog.Error("[Error] Add Fail: " + result.Error.message);
                 if (callback != null)
                     callback(null);
             }
@@ -676,7 +667,7 @@ namespace ZitgaPackageManager.Editors
 
             if (result.Error != null)
             {
-                Debug.LogError("[Error] Add Fail: " + result.Error.message);
+                ZLog.Error("[Error] Add Fail: " + result.Error.message);
                 if (callback != null)
                     callback(null);
             }
@@ -689,24 +680,30 @@ namespace ZitgaPackageManager.Editors
 
         private void ImportPackage(ProviderModel providerModel)
         {
-            string urlPackageImport = string.Format(InstallPackLocalDir, providerModel.providerName, providersLocal[providerModel.providerName].hash, providerModel.displayProviderName);
+            string urlPackageImport = string.Format(InstallPackLocalDir, providerModel.providerName,
+                providersLocal[providerModel.providerName].hash, providerModel.displayProviderName);
             if (CheckFileExist(urlPackageImport))
                 AssetDatabase.ImportPackage(urlPackageImport, true);
             else
-                Debug.LogError("File import not found!");
+                ZLog.Error("File import not found!");
         }
+
         #endregion
 
-        #region Http       
+        #region Http
+
         private void GetPackageIdConfig()
         {
             string urlPackageIdConfig = string.Format(PackIdConfigURL, ZBasePackageIdConfig.Repo);
-            mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackageIdConfig, (result) => GetDataFromPackageConfig(result)));
+            mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackageIdConfig,
+                (result) => GetDataFromPackageConfig(result)));
         }
+
         private void GetPackageLockServer()
         {
             string urlPackageLock = string.Format(PackLockURL, ZBasePackageIdConfig.Repo);
-            mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackageLock, (result) => GetDataFromPackageLockServer(result)));
+            mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackageLock,
+                (result) => GetDataFromPackageLockServer(result)));
         }
 
         private IEnumerator GetVersionForEmbeddedPack()
@@ -718,7 +715,7 @@ namespace ZitgaPackageManager.Editors
                 if (info.source == ZBaseEnum.Source.embedded)
                 {
                     numbQuest++;
-                    GetPackageFromServer(info.providerName, delegate (Dictionary<string, object> result)
+                    GetPackageFromServer(info.providerName, delegate(Dictionary<string, object> result)
                     {
                         info.GetVersionInfoFromServer(result);
                         numbQuest--;
@@ -737,7 +734,8 @@ namespace ZitgaPackageManager.Editors
         private void GetPackageFromServer(string packageName, System.Action<Dictionary<string, object>> callback)
         {
             string urlPackage = string.Format(PackVersionURL, ZBasePackageIdConfig.Repo, packageName);
-            mEditorCoroutines = ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackage, (result) => callback(result)));
+            mEditorCoroutines =
+                ZBaseEditorCoroutines.StartEditorCoroutine(GetRequest(urlPackage, (result) => callback(result)));
         }
 
         private IEnumerator GetRequest(string url, System.Action<Dictionary<string, object>> callback)
@@ -747,20 +745,21 @@ namespace ZitgaPackageManager.Editors
 
             if (!unityWebRequest.isHttpError && !unityWebRequest.isNetworkError)
             {
-                Debug.Log("[Get] URL: " + url);
+                ZLog.Info("[Get] URL: " + url);
                 while (!webRequest.isDone)
                 {
                     yield return new WaitForSeconds(0.1f);
                     if (EditorUtility.DisplayCancelableProgressBar("Downloading...", "", webRequest.progress))
                     {
-                        Debug.LogError(string.Format("[Get] URL: {0}\n{1}", url, unityWebRequest.error));
+                        ZLog.Error(string.Format("[Get] URL: {0}\n{1}", url, unityWebRequest.error));
                         CancelDownload();
                     }
                 }
+
                 EditorUtility.ClearProgressBar();
 
                 string json = unityWebRequest.downloadHandler.text;
-                Debug.Log("Data: " + json);
+                ZLog.Info("Data: " + json);
 
                 Dictionary<string, object> dic = new Dictionary<string, object>();
                 //            
@@ -773,13 +772,12 @@ namespace ZitgaPackageManager.Editors
 
                 catch (Exception e)
                 {
-                    Debug.LogError("[Get] URL: " + url + "\n" + "[Parse Data] Error: " + e.ToString());
+                    ZLog.Error("[Get] URL: " + url + "\n" + "[Parse Data] Error: " + e.ToString());
                 }
-
             }
             else
             {
-                Debug.LogError("[Error] Load Fail: " + unityWebRequest.error);
+                ZLog.Error("[Error] Load Fail: " + unityWebRequest.error);
             }
         }
 
@@ -792,7 +790,8 @@ namespace ZitgaPackageManager.Editors
             listRequest.Add(downloadFileName + ".meta", downloadFileUrl + ".meta");
             foreach (var item in listRequest)
             {
-                string path = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager, providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, item.Key);
+                string path = string.Format(PackManagerDownloadDir, ZBasePackageIdConfig.NamePackageManager,
+                    providersLocal[ZBasePackageIdConfig.NamePackageManager].hash, item.Key);
                 fileDownloading = string.Format("Downloading {0}", item.Key);
 
                 UnityWebRequest downloadWebClient = new UnityWebRequest(item.Value);
@@ -805,9 +804,10 @@ namespace ZitgaPackageManager.Editors
                     {
                         isProcessing = true;
                         yield return new WaitForSeconds(0.1f);
-                        if (EditorUtility.DisplayCancelableProgressBar("Download Manager", fileDownloading, downloadWebClient.downloadProgress))
+                        if (EditorUtility.DisplayCancelableProgressBar("Download Manager", fileDownloading,
+                            downloadWebClient.downloadProgress))
                         {
-                            Debug.LogError(downloadWebClient.error);
+                            ZLog.Error(downloadWebClient.error);
                             CancelDownload();
                             downloadWebClient.Dispose();
                         }
@@ -815,7 +815,7 @@ namespace ZitgaPackageManager.Editors
                 }
                 else
                 {
-                    Debug.LogError("Error Downloading " + downloadFileName + " : " + downloadWebClient.error);
+                    ZLog.Error("Error Downloading " + downloadFileName + " : " + downloadWebClient.error);
                     CancelDownload();
                     downloadWebClient.Dispose();
                 }
@@ -829,9 +829,11 @@ namespace ZitgaPackageManager.Editors
                 callback.Invoke();
             }
         }
+
         #endregion
 
         #region Parse Data
+
         // server       
         private void GetDataFromPackageConfig(Dictionary<string, object> data)
         {
@@ -852,7 +854,7 @@ namespace ZitgaPackageManager.Editors
             }
             catch (Exception e)
             {
-                Debug.LogError("Error Get Version From Package Lock Server: " + e.Message);
+                ZLog.Error("Error Get Version From Package Lock Server: " + e.Message);
             }
         }
 
@@ -877,7 +879,8 @@ namespace ZitgaPackageManager.Editors
                                 {
                                     providersSet.Add(info.providerName, info);
                                     if (info.currentUnityVersion != "none")
-                                        Debug.Log(string.Format("***Package {0} on server, version {1}***", info.displayProviderName, info.latestUnityVersion));
+                                        ZLog.Info(string.Format("***Package {0} on server, version {1}***",
+                                            info.displayProviderName, info.latestUnityVersion));
                                 }
                             }
                         }
@@ -890,7 +893,7 @@ namespace ZitgaPackageManager.Editors
             }
             catch (Exception e)
             {
-                Debug.LogError("Error Get Version From Package Lock Server: " + e.Message);
+                ZLog.Error("Error Get Version From Package Lock Server: " + e.Message);
             }
         }
 
@@ -898,7 +901,6 @@ namespace ZitgaPackageManager.Editors
         // local
         private IEnumerator GetVersionFromPackageLockLocal()
         {
-
             while (!IsLoadDataServerDone())
             {
                 yield return new WaitForSeconds(0.1f);
@@ -916,7 +918,6 @@ namespace ZitgaPackageManager.Editors
                 {
                     if (dependencies != null)
                     {
-
                         foreach (var item in dependencies as Dictionary<string, object>)
                         {
                             ProviderModel info = new ProviderModel();
@@ -926,7 +927,8 @@ namespace ZitgaPackageManager.Editors
                                 {
                                     providersLocal.Add(info.providerName, info);
                                     if (info.currentUnityVersion != "none")
-                                        Debug.Log(string.Format(">>>Package {0} on local, version {1}<<<", info.displayProviderName, info.currentUnityVersion));
+                                        ZLog.Info(string.Format(">>>Package {0} on local, version {1}<<<",
+                                            info.displayProviderName, info.currentUnityVersion));
                                 }
                             }
                         }
@@ -938,7 +940,8 @@ namespace ZitgaPackageManager.Editors
                             {
                                 LoadPackageFromLocal(info.providerName, info.GetVersionInfoFromLocal);
                             }
-                            else if (info.source == ZBaseEnum.Source.git && info.currentUnityVersion == "none" && !string.IsNullOrEmpty(info.hash))
+                            else if (info.source == ZBaseEnum.Source.git && info.currentUnityVersion == "none" &&
+                                     !string.IsNullOrEmpty(info.hash))
                             {
                                 LoadPackageCacheFromLocal(info.providerName, info.hash, info.GetVersionInfoFromLocal);
                             }
@@ -966,10 +969,9 @@ namespace ZitgaPackageManager.Editors
 
                                 providersLocal.Add(info.providerName, info);
 
-                                Debug.Log(string.Format(">>>Package {0} not install<<<", info.displayProviderName));
+                                ZLog.Info(string.Format(">>>Package {0} not install<<<", info.displayProviderName));
                             }
                         }
-
                     }
                 }
 
@@ -979,7 +981,7 @@ namespace ZitgaPackageManager.Editors
             }
             catch (Exception e)
             {
-                Debug.Log("Error Get Version From Package Lock Local: " + e.Message);
+                ZLog.Info("Error Get Version From Package Lock Local: " + e.Message);
             }
 
             var packageImport = EditorPrefs.GetString("key_package_import", string.Empty);
@@ -991,7 +993,6 @@ namespace ZitgaPackageManager.Editors
             }
 
             Repaint();
-
         }
 
         private void LoadPackageFromLocal(string namePackage, System.Action<Dictionary<string, object>> callback)
@@ -1011,11 +1012,12 @@ namespace ZitgaPackageManager.Editors
             }
             catch (Exception e)
             {
-                Debug.LogError("Error Load Package From Local: " + e.Message);
+                ZLog.Error("Error Load Package From Local: " + e.Message);
             }
         }
 
-        private void LoadPackageCacheFromLocal(string namePackage, string hash, System.Action<Dictionary<string, object>> callback)
+        private void LoadPackageCacheFromLocal(string namePackage, string hash,
+            System.Action<Dictionary<string, object>> callback)
         {
             try
             {
@@ -1032,7 +1034,7 @@ namespace ZitgaPackageManager.Editors
             }
             catch (Exception e)
             {
-                Debug.LogError("Error Load Package Cache From Local: " + e.Message);
+                ZLog.Error("Error Load Package Cache From Local: " + e.Message);
             }
         }
 
@@ -1047,6 +1049,7 @@ namespace ZitgaPackageManager.Editors
         #endregion
 
         #region Utility
+
         private void CompareVersion()
         {
             foreach (var item in providersLocal)
@@ -1069,10 +1072,7 @@ namespace ZitgaPackageManager.Editors
                     }
                     else
                     {
-                        if (item.Key.StartsWith("com"))
-                            item.Value.currentStatues = ZBaseEnum.Status.updated;
-                        else
-                            item.Value.currentStatues = ZBaseEnum.Status.installed;
+                        item.Value.currentStatues = ZBaseEnum.Status.updated;
                     }
 
                     item.Value.latestUnityVersion = providerServer.latestUnityVersion;
@@ -1096,21 +1096,26 @@ namespace ZitgaPackageManager.Editors
                 {
                     curBuild = currentVersion[3];
                 }
+
                 if (remoteVersion.Length > 3)
                 {
                     remoteBuild = remoteVersion[3];
-
                 }
-                System.Version cur = new System.Version(currentVersion[0], currentVersion[1], currentVersion[2], curBuild);
-                System.Version remote = new System.Version(remoteVersion[0], remoteVersion[1], remoteVersion[2], remoteBuild);
+
+                System.Version cur =
+                    new System.Version(currentVersion[0], currentVersion[1], currentVersion[2], curBuild);
+                System.Version remote =
+                    new System.Version(remoteVersion[0], remoteVersion[1], remoteVersion[2], remoteBuild);
                 isNewer = cur < remote;
             }
             catch (Exception e)
             {
-                Debug.LogError("Error " + e.Message);
+                ZLog.Error("Error " + e.Message);
             }
+
             return isNewer;
         }
+
         private bool CheckFileExist(string pathFile)
         {
             return File.Exists(pathFile);
@@ -1118,11 +1123,14 @@ namespace ZitgaPackageManager.Editors
 
         private void SortListLocal()
         {
-            providersLocal = providersLocal.OrderBy(item => item.Value.displayProviderName).ToDictionary(item => item.Key, item => item.Value);
+            providersLocal = providersLocal.OrderBy(item => item.Value.displayProviderName)
+                .ToDictionary(item => item.Key, item => item.Value);
         }
+
         #endregion
 
         #region Scope
+
         private void ScopedRegistryConfig()
         {
             AddScopedRegistry(ZBasePackageIdConfig.ScopesGoogle);
@@ -1137,12 +1145,11 @@ namespace ZitgaPackageManager.Editors
                 AddOrCreateScopedRegistry(registry, manifestJSON);
                 write(manifestJSON);
             }
-
         }
 
         private bool CheckScopeExist(ScopedRegistry registry, JObject manifestJSON)
         {
-            JArray Jregistries = (JArray)manifestJSON["scopedRegistries"];
+            JArray Jregistries = (JArray) manifestJSON["scopedRegistries"];
             if (Jregistries == null)
             {
                 return false;
@@ -1150,14 +1157,15 @@ namespace ZitgaPackageManager.Editors
 
             foreach (var JRegistryElement in Jregistries)
             {
-
                 if (JRegistryElement["name"] != null && JRegistryElement["url"] != null)
                 {
-
-                    if (String.Equals(JRegistryElement["name"].ToString(), registry.name) && String.Equals(JRegistryElement["url"].ToString(), registry.url))
+                    if (String.Equals(JRegistryElement["name"].ToString(), registry.name) &&
+                        String.Equals(JRegistryElement["url"].ToString(), registry.url))
                     {
                         return true;
-                    };
+                    }
+
+                    ;
                 }
             }
 
@@ -1166,7 +1174,7 @@ namespace ZitgaPackageManager.Editors
 
         private void AddOrCreateScopedRegistry(ScopedRegistry registry, JObject manifestJSON)
         {
-            JArray Jregistries = (JArray)manifestJSON["scopedRegistries"];
+            JArray Jregistries = (JArray) manifestJSON["scopedRegistries"];
             if (Jregistries == null)
             {
                 Jregistries = new JArray();
@@ -1187,6 +1195,7 @@ namespace ZitgaPackageManager.Editors
             {
                 scopes.Add(scope);
             }
+
             registryElement["scopes"] = scopes;
         }
 
@@ -1195,6 +1204,7 @@ namespace ZitgaPackageManager.Editors
             File.WriteAllText(ManifestURL, manifestJSON.ToString());
             AssetDatabase.Refresh();
         }
+
         #endregion
     }
 }

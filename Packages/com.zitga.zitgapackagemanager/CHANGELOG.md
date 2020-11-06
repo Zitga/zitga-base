@@ -6,26 +6,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.0] - 2020-10-06
 
-*This is the first release of Zitga Package Manager*
+* This is the first release of Zitga Package Manager .
 
 ## [0.1.7] - 2020-10-30
  
-* This is the first release of Casual UI System.*
+* This is the first release of Casual UI System .
 
 ## [0.1.8] - 2020-10-30
  
-* Restructure package Casual UI System.*
+* Restructure package Casual UI System .
 
 ## [0.1.9] - 2020-11-02
  
-* Modify logic package Zitga Package Manager.*
+* Modify logic package Zitga Package Manager .
 
 ## [0.2.1] - 2020-11-03
  
-* Construct tracking firebase, tracking appsflyer, unity iap.*
-* Fix some minor bugs.*
+* Construct tracking firebase, tracking appsflyer, unity iap .
+* Fix some minor bugs .
 
 ## [0.2.2] - 2020-11-04
 
-* Modify UI for tool manager.*
-* Fix some minor bugs.*
+* Modify UI for tool manager .
+* Fix some minor bugs.
+
+## [0.2.3] - 2020-11-06
+
+* Modify logic install package .
+* Add readme .
