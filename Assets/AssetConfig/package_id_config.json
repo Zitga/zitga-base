@@ -12,6 +12,5 @@
   "zitga.ironsourcemediation": "IronSource_IntegrationManager",
   "zitga.unityiap": "Unity_IAP",
   "com.zitga.trackingfirebase": "Tracking Firebase",
-  "com.google.external-dependency-manager":"External Dependencies Manager",
   "zitga.trackingappsflyer":"Tracking_Appsflyer"
 }
