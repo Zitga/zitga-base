@@ -599,6 +599,7 @@ namespace ZitgaPackageManager.Editors
 
         private IEnumerator AddPackage(ProviderModel providerInfo, System.Action<AddRequest> callback)
         {
+            float percentProgress = 0;
             AddRequest result = null;
             string urlDownload = "";
             ProviderModel providerSever = providersSet[providerInfo.providerName];
@@ -616,9 +617,15 @@ namespace ZitgaPackageManager.Editors
             while (!result.IsCompleted)
             {
                 isProcessing = true;
+                EditorUtility.DisplayProgressBar(providerInfo.displayProviderName + " Downloading...", "",
+                    percentProgress);
+                percentProgress += 0.002f;
+                if (percentProgress >= 1)
+                    percentProgress = 0;
                 yield return new WaitForSeconds(0.1f);
             }
 
+            EditorUtility.ClearProgressBar();
 
             if (result.Error != null)
             {

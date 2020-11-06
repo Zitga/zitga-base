@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 #if TRACKING_APPSFLYER
 using AppsFlyerSDK;
 #endif
@@ -9,6 +10,7 @@ using UnityEngine;
 public class AppsflyerUtils
 {
     public bool tokenSent = false;
+
     public AppsflyerUtils(string appsflyerDevKey, string appId, bool isDebugMode)
     {
 #if TRACKING_APPSFLYER
@@ -17,7 +19,7 @@ public class AppsflyerUtils
         AppsFlyer.initSDK(appsflyerDevKey, appId);
         AppsFlyer.startSDK();
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && TRACKING_FIREBASE
         Firebase.Messaging.FirebaseMessaging.TokenReceived += OnTokenReceived;
 #endif
 
@@ -50,13 +52,12 @@ public class AppsflyerUtils
 #endif
     }
 
+#if UNITY_ANDROID && TRACKING_APPSFLYER && TRACKING_FIREBASE
     public void OnTokenReceived(object sender, Firebase.Messaging.TokenReceivedEventArgs token)
     {
-#if UNITY_ANDROID && TRACKING_APPSFLYER
         AppsFlyerAndroid.updateServerUninstallToken(token.Token);
-#endif
     }
-
+#endif
 
 
     public string GetAppsflyerId()
@@ -67,5 +68,4 @@ public class AppsflyerUtils
         return "";
 #endif
     }
-
 }
