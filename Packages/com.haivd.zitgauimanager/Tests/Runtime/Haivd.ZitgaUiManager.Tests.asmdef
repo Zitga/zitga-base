@@ -1,0 +1,11 @@
+{
+    "name": "Haivd.ZitgaUiManager.Tests",
+    "references": [
+        "Haivd.ZitgaUiManager"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

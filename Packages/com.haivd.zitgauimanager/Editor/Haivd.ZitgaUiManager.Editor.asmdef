@@ -1,0 +1,10 @@
+{
+    "name": "Haivd.ZitgaUiManager.Editor",
+    "references": [
+      "Haivd.ZitgaUiManager"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

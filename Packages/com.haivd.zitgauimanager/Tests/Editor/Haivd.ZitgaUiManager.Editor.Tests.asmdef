@@ -1,0 +1,14 @@
+{
+    "name": "Haivd.ZitgaUiManager.Editor.Tests",
+    "references": [
+        "Haivd.ZitgaUiManager.Editor",
+        "Haivd.ZitgaUiManager"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
