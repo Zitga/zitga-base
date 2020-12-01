@@ -12,5 +12,6 @@
   "zitga.ironsourcemediation": "IronSource_IntegrationManager",
   "zitga.unityiap": "Unity_IAP",
   "com.zitga.trackingfirebase": "Tracking Firebase",
-  "zitga.trackingappsflyer":"Tracking_Appsflyer"
+  "zitga.trackingappsflyer":"Tracking_Appsflyer",
+  "zitga.spineunity":"Spine_Unity"
 }
