@@ -224,6 +224,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "zitga.spineunity": {
+      "version": "file:zitga.spineunity",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "zitga.trackingappsflyer": {
       "version": "file:zitga.trackingappsflyer",
       "depth": 0,
