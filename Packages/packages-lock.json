@@ -240,9 +240,7 @@
       "version": "file:zitga.unityiap",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {
-        "com.unity.purchasing": ""
-      }
+      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
