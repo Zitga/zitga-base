@@ -107,7 +107,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.purchasing": {
-      "version": "2.1.1",
+      "version": "2.2.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -162,11 +162,25 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.zitga.csvreader": {
+      "version": "file:com.zitga.csvreader",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.zitga.genui": {
       "version": "file:com.zitga.genui",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
+    },
+    "com.zitga.localization": {
+      "version": "file:com.zitga.localization",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.zitga.csvreader": ""
+      }
     },
     "com.zitga.trackingfirebase": {
       "version": "file:com.zitga.trackingfirebase",
@@ -176,6 +190,15 @@
         "com.google.firebase.analytics": "",
         "com.google.firebase.messaging": "",
         "com.google.firebase.crashlytics": ""
+      }
+    },
+    "com.zitga.uisystem": {
+      "version": "file:com.zitga.uisystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.zitga.csvreader": "",
+        "com.zitga.localization": ""
       }
     },
     "com.zitga.zitgapackagemanager": {
@@ -227,8 +250,20 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "zitga.leanpool": {
+      "version": "file:zitga.leanpool",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "zitga.logviewer": {
       "version": "file:zitga.logviewer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "zitga.odin": {
+      "version": "file:zitga.odin",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
@@ -249,7 +284,9 @@
       "version": "file:zitga.unityiap",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.purchasing": ""
+      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

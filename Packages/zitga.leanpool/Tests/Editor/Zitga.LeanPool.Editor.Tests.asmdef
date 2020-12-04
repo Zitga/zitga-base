@@ -1,0 +1,14 @@
+{
+    "name": "Zitga.LeanPool.Editor.Tests",
+    "references": [
+        "Zitga.LeanPool.Editor",
+        "Zitga.LeanPool"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

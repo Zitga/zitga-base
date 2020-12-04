@@ -1,0 +1,11 @@
+{
+    "name": "Zitga.Csvreader.Tests",
+    "references": [
+        "Zitga.Csvreader"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

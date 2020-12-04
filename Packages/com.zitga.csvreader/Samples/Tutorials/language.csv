@@ -1,0 +1,68 @@
+key~value
+vip_reward_subject~VIP Rewards
+vip_reward_content~Congratulations! You've received rewards for reaching VIP {1}.
+friend_boss_last_hit_reward_subject~Friend Boss Reward
+friend_boss_last_hit_reward_content~Congratulations! You've got Friend Boss last hit reward.
+friend_boss_cleared_reward_subject~Friend Boss Reward
+friend_boss_cleared_reward_content~Congratulations! You've got rewards for defeating the Friend Boss.
+friend_season_ranking_reward_subject~Friend Season Ranking
+friend_season_ranking_reward_content~Congratulations! You've got ranking friend season {1} rewards.
+arena_season_ranking_reward_subject~Arena Season Ranking
+arena_season_ranking_reward_content~Congratulations! You've got Arena season {1} ranking rewards.
+guild_boss_daily_reward_subject~Daily Guild Boss Reward
+guild_boss_daily_reward_content~Congratulations! You've got rewards for joining daily Guild Boss.
+guild_boss_monthly_reward_subject~Monthly Guild Boss Reward
+guild_boss_monthly_reward_content~Congratulations! You've got monthly rewards in the Guild Boss.
+guild_dungeon_cleared_reward_subject~Guild Dungeon Rewards
+guild_dungeon_cleared_reward_content~Congratulations! You've received rewards for completing stage {1} of season {2} in the Guild Dungeon.
+guild_dungeon_season_reward_subject~Guild Dungeon Season Rewards
+guild_dungeon_season_reward_content~Congratulations! You've received rewards for completing season {1} in the Guild Dungeon.
+guild_war_battle_reward_subject~Guild War Battle Rewards
+guild_war_battle_reward_content~Congratulations! You've received rewards for completing battle {2} of season {1} in the Guild War.
+guild_war_season_reward_subject~Guild War Season Rewards
+guild_war_season_reward_content~Congratulations! You've received rewards for completing season {1} in the Guild War.
+purchase_raw_pack_subject~Raw Pack Rewards
+purchase_raw_pack_content~Congratulations! You've received rewards for purchasing pack {1}.\nTransaction ID: {2}\nTransaction Time: {3}
+purchase_subscription_pack_instant_subject~Subscription Pack Rewards
+purchase_subscription_pack_instant_content~Congratulations! You've received rewards for purchasing subscription pack {1}.\nTransaction ID: {2}\nTransaction Time: {3}
+purchase_subscription_pack_daily_subject~Subscription Pack Daily Reward
+purchase_subscription_pack_daily_content~Congratulations! You've received daily rewards from subscription pack {1}.\nDay: {2}
+purchase_progress_pack_subject~Special Pack Reward
+purchase_progress_pack_content~Congratulations! You received a reward for purchasing special pack {1}.\nTransaction ID: {2}\nTransaction Time: {3}
+purchase_limited_pack_subject~Limited Pack Reward
+purchase_limited_pack_content~Congratulations! You received a reward for purchasing limit pack {1}.\nTransaction ID: {2}\nTransaction Time: {3}
+purchase_event_bundle_pack_subject~Event Bundle Pack
+purchase_event_bundle_pack_content~Congratulations! You received a reward for purchasing event bundle pack {1}.\nTransaction ID: {2}\nTransaction Time: {3}
+purchase_event_hot_deal_subject~Event Bundle Pack
+purchase_event_hot_deal_content~Congratulations! You received a reward for purchasing event bundle pack {1}.\nTransaction ID: {2}\nTransaction Time: {3}
+purchase_subscription_pack_trial_subject~Subscription Pack Daily Trial Reward
+purchase_subscription_pack_trial_content~Congratulations! You've received daily rewards from trial subscription pack {1}.\nDay: {2}
+purchase_first_time_reward_subject~Purchase First Time Reward
+purchase_first_time_reward_content~Congratulations! You've received first time rewards for purchasing first time in-game
+event_arena_subject~Arena Event
+event_arena_content~Congratulations! You received season {1} rewards in the Arena event.
+event_casino_subject~Wheel Of Fate Event
+event_casino_content~Congratulations! You received season {1} rewards in the Wheel Of Fate event.
+event_hero_collect_subject~Hero Collecting Event
+event_hero_collect_content~Congratulations! You received a Season {1} reward in Hero collecting event.
+event_prophet_tree_subject~Ancient Tree Event
+event_prophet_tree_content~Congratulations! You received a Season {1} reward in Ancient Tree event.
+event_summon_subject~Event Summoning
+event_summon_content~Congratulations! You received a Season {1} reward in Summon event.
+event_tavern_subject~Tavern Event
+event_tavern_content~Congratulations! You received a Season {1} reward in Tavern event.
+event_mid_autumn_subject~Event Mid-autumn
+event_mid_autumn_content~Congratulations! 
+email_change_password_subject~Change email password for Summoner Era
+email_change_password_content~User name: {2}. Password reset code {1}, Expired: {3}
+email_validation_subject~Validation email for Summoner Era
+email_validation_content~Validation code {1}, Expired: {3}
+email_sender_name~Zitga Support
+welcome_mail_title~Welcome to Summoners Era!
+welcome_mail_content~Dear Summoners,\n\nThank you for playing Summoners Era. Hope you have amazing moments while enjoy playing it.\n\nWe would like to send you a small gift to support your upcoming adventure.\n\nWe hope you will be an important part of Summoners Era and make it even better in the future.\n\nThank you!\nSummoners Era Team.
+event_halloween_subject~Event Halloween
+event_halloween_content~Congratulation! You've finished a lap in Dice Game. Claim these reward now!
+event_black_friday_subject~Black Friday Card Reward
+event_black_friday_content~Congratulations! You've received daily rewards from Black Friday Card {1}.\nDay: {2}\nSeason: {3}
+event_new_year_subject~Blessing Card Reward
+event_new_year_content~Congratulations! You've received daily rewards from Blessing Card.\nDay: {1}\n

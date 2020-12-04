@@ -1,0 +1,11 @@
+{
+    "name": "Zitga.LeanPool.Tests",
+    "references": [
+        "Zitga.LeanPool"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

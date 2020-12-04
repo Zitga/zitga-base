@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.Csvreader.Editor",
+    "references": [
+      "Zitga.Csvreader"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

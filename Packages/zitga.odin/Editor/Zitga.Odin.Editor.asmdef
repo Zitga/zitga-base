@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.Odin.Editor",
+    "references": [
+      "Zitga.Odin"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

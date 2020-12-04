@@ -1,0 +1,68 @@
+key~value
+vip_reward_subject~Quà VIP
+vip_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi đạt VIP {1}.
+friend_boss_last_hit_reward_subject~Phần thưởng từ {e(game_mode_9)}
+friend_boss_last_hit_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi đánh {e(game_mode_9)} kết liễu.
+friend_boss_cleared_reward_subject~Phần thưởng từ {e(game_mode_9)}
+friend_boss_cleared_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi đánh bại {e(game_mode_9)}.
+friend_season_ranking_reward_subject~Quà Xếp Hạng Bạn Bè
+friend_season_ranking_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng xếp hạng bạn bè mùa {1}. 
+arena_season_ranking_reward_subject~Quà Xếp Hạng Mùa Giải {e(game_mode_6)}
+arena_season_ranking_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng xếp hạng mùa {1} tại {e(game_mode_6)}. 
+guild_boss_daily_reward_subject~Quà Trùm Bang Hội Hàng Ngày
+guild_boss_daily_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi tham gia thách thức Trùm bang hội.
+guild_boss_monthly_reward_subject~Quà Trùm Bang Hội Hàng Tháng
+guild_boss_monthly_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng hàng tháng khi tham gia thách thức Trùm bang hội.
+guild_dungeon_cleared_reward_subject~Guild Dungeon Rewards
+guild_dungeon_cleared_reward_content~Congratulations! You've received rewards for completing stage {1} of season {2} in the Guild Dungeon.
+guild_dungeon_season_reward_subject~Quà Xếp Hạng Mùa Giải {e(game_mode_11)}.
+guild_dungeon_season_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi hoàn thành {e(game_mode_11)} mùa {1}.
+guild_war_battle_reward_subject~Quà Chiến Tranh Bang Hội
+guild_war_battle_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi hoàn thành trận chiến {2} của mùa {1} trong Cuộc chiến bang hội.
+guild_war_season_reward_subject~Quà Mùa Giải Chiến Tranh Bang Hội
+guild_war_season_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi hoàn thành phần {1} trong Cuộc chiến bang hội.
+purchase_raw_pack_subject~Phần Thưởng Gói
+purchase_raw_pack_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi mua gói {1}.\nID giao dịch: {2}\nThời gian giao dịch: {3} 
+purchase_subscription_pack_instant_subject~Quà Thuê Bao
+purchase_subscription_pack_instant_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi đăng ký gói {1}.\nID giao dịch: {2}\nThời gian giao dịch: {3} 
+purchase_subscription_pack_daily_subject~Quà Thuê Bao Hàng Ngày
+purchase_subscription_pack_daily_content~Xin chúc mừng! Bạn đã nhận được phần thưởng hàng ngày từ gói đăng ký {1}.\nNgày: {2}
+purchase_progress_pack_subject~Quà Mua Gói Đầu Tiên
+purchase_progress_pack_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi mua gói đặc biệt {1}.\nID giao dịch: {2}\nThời gian giao dịch: {3} 
+purchase_limited_pack_subject~Quà Từ Gói Giới Hạn
+purchase_limited_pack_content~Xin chúc mừng! Bạn đã nhận được một phần thưởng khi mua gói {1}.\nID giao dịch: {2}\nThời gian giao dịch: {3} 
+purchase_event_bundle_pack_subject~Quà Từ Gói Sự Kiện
+purchase_event_bundle_pack_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi mua gói sự kiện {1}.\nID giao dịch: {2}\nThời gian giao dịch: {3} 
+purchase_event_hot_deal_subject~Quà Từ Gói Sự Kiện
+purchase_event_hot_deal_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi mua gói sự kiện {1}.\nID giao dịch: {2}\nThời gian giao dịch: {3} 
+purchase_subscription_pack_trial_subject~Quà Thuê Bao Hàng Ngày Thử Nghiệm
+purchase_subscription_pack_trial_content~Xin chúc mừng! Bạn đã nhận được phần thưởng hàng ngày từ gói đăng ký thử nghiệm {1}.\nNgày: {2}
+purchase_first_time_reward_subject~Phần thưởng mua lần đầu
+purchase_first_time_reward_content~Xin chúc mừng! Bạn đã nhận được phần thưởng khi mua lần đầu tiên trong trò chơi
+event_arena_subject~Sự Kiện {e(game_mode_6)}
+event_arena_content~Xin chúc mừng! Bạn đã nhận được phần thưởng mùa {1} trong sự kiện {e(game_mode_6)}.
+event_casino_subject~Sự Kiện {e(feature_11)}
+event_casino_content~Xin chúc mừng! Bạn đã nhận được phần thưởng mùa {1} trong sự kiện {e(feature_11)}.
+event_hero_collect_subject~Sự Kiện Thu Thập Anh Hùng
+event_hero_collect_content~Xin chúc mừng! Bạn đã nhận được phần thưởng mùa {1} trong sự kiện thu thập Anh hùng.
+event_prophet_tree_subject~Sự Kiện Cây Tiên Tri
+event_prophet_tree_content~Xin chúc mừng! Bạn đã nhận được phần thưởng mùa {1} trong sự kiện {e(feature_8)}.
+event_summon_subject~Sự Kiện Triệu Hồi
+event_summon_content~Xin chúc mừng! Bạn đã nhận được phần thưởng mùa {1} trong sự kiện Triệu Hồi.
+event_tavern_subject~Sự Kiện {e(feature_7)}
+event_tavern_content~Xin chúc mừng! Bạn đã nhận được phần thưởng mùa {1} trong sự kiện {e(feature_7)}.
+event_mid_autumn_subject~Event Mid-autumn
+event_mid_autumn_content~Congratulations! 
+email_change_password_subject~Thay đổi mật khẩu email Summon Era
+email_change_password_content~Tên tài khoản: {2}. Mã đặt lại mật khẩu {1}, Đã hết hạn: {3}
+email_validation_subject~Email xác nhận Summon Era
+email_validation_content~Mã xác thực {1}, Đã hết hạn: {3}
+email_sender_name~Hỗ trợ
+welcome_mail_title~Chào mừng bạn đến với Summoners Era!
+welcome_mail_content~Thân gửi Triệu Hồi Sư,\n\nCảm ơn bạn đã tham gia trải nghiệm Summoners Era. Mong rằng chúng tôi có thể mang đến cho bạn những khoảng thời gian vui vẻ khi chơi game, hãy tận hưởng hết mình nhé.\n\nChúng tôi xin gửi bạn một món quà nho nhỏ kèm với lời cảm ơn từ đội phát triển.\n\nXin chân thành cảm ơn đóng góp to lớn của bạn vào cộng đồng Summoners Era, mong rằng chúng tôi có thể mang đến cho bạn thêm nhiều trải nghiệm tốt hơn nữa trong tương lai.\n\nThân ái & Quyết thắng,\nĐội phát triển Summoners Era.
+event_halloween_subject~Event Halloween
+event_halloween_content~Congratulation! You've finished a lap in Dice Game. Claim these reward now!
+event_black_friday_subject~Black Friday Card Reward
+event_black_friday_content~Congratulations! You've received daily rewards from Black Friday Card {1}.\nDay: {2}\nSeason: {3}
+event_new_year_subject~Phần thưởng Thẻ phước lành
+event_new_year_content~Xin chúc mừng! Bạn nhận được phần thưởng hàng ngày từ Thẻ phước lành.\nNgày: {1}\n

@@ -1,0 +1,11 @@
+{
+    "name": "Zitga.Odin.Tests",
+    "references": [
+        "Zitga.Odin"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

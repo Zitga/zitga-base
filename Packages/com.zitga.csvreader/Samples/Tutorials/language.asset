@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0919dafb5244de7b4899ac51fe91a30, type: 3}
+  m_Name: language
+  m_EditorClassIdentifier: 
+  data:
+    keys:
+    - vip_reward_subject
+    - vip_reward_content
+    - friend_boss_last_hit_reward_subject
+    - friend_boss_last_hit_reward_content
+    - friend_boss_cleared_reward_subject
+    - friend_boss_cleared_reward_content
+    - friend_season_ranking_reward_subject
+    - friend_season_ranking_reward_content
+    - arena_season_ranking_reward_subject
+    - arena_season_ranking_reward_content
+    - guild_boss_daily_reward_subject
+    - guild_boss_daily_reward_content
+    - guild_boss_monthly_reward_subject
+    - guild_boss_monthly_reward_content
+    - guild_dungeon_cleared_reward_subject
+    - guild_dungeon_cleared_reward_content
+    - guild_dungeon_season_reward_subject
+    - guild_dungeon_season_reward_content
+    - guild_war_battle_reward_subject
+    - guild_war_battle_reward_content
+    - guild_war_season_reward_subject
+    - guild_war_season_reward_content
+    - purchase_raw_pack_subject
+    - purchase_raw_pack_content
+    - purchase_subscription_pack_instant_subject
+    - purchase_subscription_pack_instant_content
+    - purchase_subscription_pack_daily_subject
+    - purchase_subscription_pack_daily_content
+    - purchase_progress_pack_subject
+    - purchase_progress_pack_content
+    - purchase_limited_pack_subject
+    - purchase_limited_pack_content
+    - purchase_event_bundle_pack_subject
+    - purchase_event_bundle_pack_content
+    - purchase_event_hot_deal_subject
+    - purchase_event_hot_deal_content
+    - purchase_subscription_pack_trial_subject
+    - purchase_subscription_pack_trial_content
+    - purchase_first_time_reward_subject
+    - purchase_first_time_reward_content
+    - event_arena_subject
+    - event_arena_content
+    - event_casino_subject
+    - event_casino_content
+    - event_hero_collect_subject
+    - event_hero_collect_content
+    - event_prophet_tree_subject
+    - event_prophet_tree_content
+    - event_summon_subject
+    - event_summon_content
+    - event_tavern_subject
+    - event_tavern_content
+    - event_mid_autumn_subject
+    - event_mid_autumn_content
+    - email_change_password_subject
+    - email_change_password_content
+    - email_validation_subject
+    - email_validation_content
+    - email_sender_name
+    - welcome_mail_title
+    - welcome_mail_content
+    - event_halloween_subject
+    - event_halloween_content
+    - event_black_friday_subject
+    - event_black_friday_content
+    - event_new_year_subject
+    - event_new_year_content
+    values:
+    - VIP Rewards
+    - Congratulations! You've received rewards for reaching VIP {1}.
+    - Friend Boss Reward
+    - Congratulations! You've got Friend Boss last hit reward.
+    - Friend Boss Reward
+    - Congratulations! You've got rewards for defeating the Friend Boss.
+    - Friend Season Ranking
+    - Congratulations! You've got ranking friend season {1} rewards.
+    - Arena Season Ranking
+    - Congratulations! You've got Arena season {1} ranking rewards.
+    - Daily Guild Boss Reward
+    - Congratulations! You've got rewards for joining daily Guild Boss.
+    - Monthly Guild Boss Reward
+    - Congratulations! You've got monthly rewards in the Guild Boss.
+    - Guild Dungeon Rewards
+    - Congratulations! You've received rewards for completing stage {1} of season
+      {2} in the Guild Dungeon.
+    - Guild Dungeon Season Rewards
+    - Congratulations! You've received rewards for completing season {1} in the Guild
+      Dungeon.
+    - Guild War Battle Rewards
+    - Congratulations! You've received rewards for completing battle {2} of season
+      {1} in the Guild War.
+    - Guild War Season Rewards
+    - Congratulations! You've received rewards for completing season {1} in the Guild
+      War.
+    - Raw Pack Rewards
+    - 'Congratulations! You''ve received rewards for purchasing pack {1}.\nTransaction
+      ID: {2}\nTransaction Time: {3}'
+    - Subscription Pack Rewards
+    - 'Congratulations! You''ve received rewards for purchasing subscription pack
+      {1}.\nTransaction ID: {2}\nTransaction Time: {3}'
+    - Subscription Pack Daily Reward
+    - 'Congratulations! You''ve received daily rewards from subscription pack {1}.\nDay:
+      {2}'
+    - Special Pack Reward
+    - 'Congratulations! You received a reward for purchasing special pack {1}.\nTransaction
+      ID: {2}\nTransaction Time: {3}'
+    - Limited Pack Reward
+    - 'Congratulations! You received a reward for purchasing limit pack {1}.\nTransaction
+      ID: {2}\nTransaction Time: {3}'
+    - Event Bundle Pack
+    - 'Congratulations! You received a reward for purchasing event bundle pack {1}.\nTransaction
+      ID: {2}\nTransaction Time: {3}'
+    - Event Bundle Pack
+    - 'Congratulations! You received a reward for purchasing event bundle pack {1}.\nTransaction
+      ID: {2}\nTransaction Time: {3}'
+    - Subscription Pack Daily Trial Reward
+    - 'Congratulations! You''ve received daily rewards from trial subscription pack
+      {1}.\nDay: {2}'
+    - Purchase First Time Reward
+    - Congratulations! You've received first time rewards for purchasing first time
+      in-game
+    - Arena Event
+    - Congratulations! You received season {1} rewards in the Arena event.
+    - Wheel Of Fate Event
+    - Congratulations! You received season {1} rewards in the Wheel Of Fate event.
+    - Hero Collecting Event
+    - Congratulations! You received a Season {1} reward in Hero collecting event.
+    - Ancient Tree Event
+    - Congratulations! You received a Season {1} reward in Ancient Tree event.
+    - Event Summoning
+    - Congratulations! You received a Season {1} reward in Summon event.
+    - Tavern Event
+    - Congratulations! You received a Season {1} reward in Tavern event.
+    - Event Mid-autumn
+    - 'Congratulations! '
+    - Change email password for Summoner Era
+    - 'User name: {2}. Password reset code {1}, Expired: {3}'
+    - Validation email for Summoner Era
+    - 'Validation code {1}, Expired: {3}'
+    - Zitga Support
+    - Welcome to Summoners Era!
+    - Dear Summoners,\n\nThank you for playing Summoners Era. Hope you have amazing
+      moments while enjoy playing it.\n\nWe would like to send you a small gift to
+      support your upcoming adventure.\n\nWe hope you will be an important part of
+      Summoners Era and make it even better in the future.\n\nThank you!\nSummoners
+      Era Team.
+    - Event Halloween
+    - Congratulation! You've finished a lap in Dice Game. Claim these reward now!
+    - Black Friday Card Reward
+    - 'Congratulations! You''ve received daily rewards from Black Friday Card {1}.\nDay:
+      {2}\nSeason: {3}'
+    - Blessing Card Reward
+    - 'Congratulations! You''ve received daily rewards from Blessing Card.\nDay:
+      {1}\n'

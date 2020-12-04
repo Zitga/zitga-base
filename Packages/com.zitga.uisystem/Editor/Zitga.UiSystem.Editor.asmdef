@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.UiSystem.Editor",
+    "references": [
+      "Zitga.UiSystem"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

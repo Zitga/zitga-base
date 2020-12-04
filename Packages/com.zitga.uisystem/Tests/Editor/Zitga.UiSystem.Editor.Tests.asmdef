@@ -1,0 +1,14 @@
+{
+    "name": "Zitga.UiSystem.Editor.Tests",
+    "references": [
+        "Zitga.UiSystem.Editor",
+        "Zitga.UiSystem"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
