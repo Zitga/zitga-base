@@ -4,7 +4,7 @@
   "com.cysharp.unitask": "UniTask",
   "zitga.dotweenpro": "DOTween_Pro",
   "zitga.clearnemptydirectories": "Clean_Empty_Directories",
-  "com.zitga.genui": "GenUI",  
+  "com.zitga.genui": "GenUI",
   "zitga.logviewer": "Log_Viewer",
   "zitga.facebook": "Facebook_Unity_Sdk",
   "com.haivd.casualuimanager": "Casual UI Manager",
@@ -12,6 +12,11 @@
   "zitga.ironsourcemediation": "IronSource_IntegrationManager",
   "zitga.unityiap": "Unity_IAP",
   "com.zitga.trackingfirebase": "Tracking Firebase",
-  "zitga.trackingappsflyer":"Tracking_Appsflyer",
-  "zitga.spineunity":"Spine_Unity"
+  "zitga.trackingappsflyer": "Tracking_Appsflyer",
+  "zitga.spineunity": "Spine_Unity",
+  "zitga.odin": "Odin",
+  "zitga.leanpool": "Lean_Pool",
+  "com.zitga.csvreader": "CsvReader",
+  "com.zitga.localization": "Localization",
+  "com.zitga.uisystem": "UISystem"
 }

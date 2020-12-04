@@ -1,0 +1,14 @@
+{
+    "name": "Zitga.Localization.Editor.Tests",
+    "references": [
+        "Zitga.Localization.Editor",
+        "Zitga.Localization"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

@@ -1,0 +1,14 @@
+{
+    "name": "Zitga.Csvreader.Editor.Tests",
+    "references": [
+        "Zitga.Csvreader.Editor",
+        "Zitga.Csvreader"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

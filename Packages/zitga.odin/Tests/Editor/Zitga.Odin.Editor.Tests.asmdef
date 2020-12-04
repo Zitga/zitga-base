@@ -1,0 +1,14 @@
+{
+    "name": "Zitga.Odin.Editor.Tests",
+    "references": [
+        "Zitga.Odin.Editor",
+        "Zitga.Odin"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

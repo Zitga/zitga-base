@@ -1,0 +1,9 @@
+[submodule "CsvReader"]
+	path = CsvReader
+	url = ../../haivd031194/CsvReader.git
+[submodule "Localization"]
+	path = Localization
+	url = ../../haivd031194/Localization.git
+[submodule "UISystem"]
+	path = UISystem
+	url = ../../haivd031194/UISystem.git

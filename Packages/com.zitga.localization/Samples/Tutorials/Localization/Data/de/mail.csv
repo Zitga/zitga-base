@@ -1,0 +1,68 @@
+key~value
+vip_reward_subject~VIP-Belohnungen
+vip_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für das Erreichen von VIP {1} erhalten.
+friend_boss_last_hit_reward_subject~Belohnungen aus  {e(game_mode_9)}
+friend_boss_last_hit_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für den letzten Treffer von {e(game_mode_9)} erhalten.
+friend_boss_cleared_reward_subject~Belohnungen aus  {e(game_mode_9)}
+friend_boss_cleared_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für das Besiegen von {e(game_mode_9)} erhalten.
+friend_season_ranking_reward_subject~Ranking für Freund-Saison
+friend_season_ranking_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für Ranking für Freund-Saison {1} erhalten.
+arena_season_ranking_reward_subject~Ranking für Arena-Saison
+arena_season_ranking_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für Ranking für Saison {1} in {e(game_mode_6)} erhalten.
+guild_boss_daily_reward_subject~Tägliche Belohnung für Verein-Boss
+guild_boss_daily_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für die Teilnahme an Herausforderung Verein-Boss erhalten.
+guild_boss_monthly_reward_subject~Monatliche Belohnung für Verein-Boss
+guild_boss_monthly_reward_content~Herzliche Glückwünsche! Du hast monatliche Belohnung für Verein-Boss erhalten.
+guild_dungeon_cleared_reward_subject~Belohnung für {e(game_mode_11)}
+guild_dungeon_cleared_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für den Abschluss der Phase {1} in {2} erhalten.
+guild_dungeon_season_reward_subject~Ranking für {e(game_mode_11)}-Saison
+guild_dungeon_season_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für den Abschluss der Saison {1} von {e(game_mode_11)} erhalten.
+guild_war_battle_reward_subject~Belohnung für Verein-Krieg
+guild_war_battle_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für den Abschluss der Schlacht {2} der Saison {1} im Verein-Krieg erhalten.
+guild_war_season_reward_subject~Belohnung für Verein-Krieg-Saison
+guild_war_season_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für den Abschluss der Saison {1} im Verein-Krieg erhalten.
+purchase_raw_pack_subject~Belohnung Rohes Paket
+purchase_raw_pack_content~Herzliche Glückwünsche! Du hast Belohnungen für den Kauf von Paket {1} erhalten. Transaktions-ID: {2}\nTransaktionszeit: {3}
+purchase_subscription_pack_instant_subject~Belohnung Abonnement-Paket
+purchase_subscription_pack_instant_content~Herzliche Glückwünsche! Du hast Belohnungen für den Kauf von Abonnement-Paket {1} erhalten. Transaktions-ID: {2}\nTransaktionszeit: {3}
+purchase_subscription_pack_daily_subject~Tägliche Belohnung  Abonnement-Paket
+purchase_subscription_pack_daily_content~Herzliche Glückwünsche! Du hast Belohnungen aus dem Abonnement-Paket {1} erhalten. Datum: {2}
+purchase_progress_pack_subject~Belohnung für erstmaligen Kauf des Pakets
+purchase_progress_pack_content~Herzliche Glückwünsche! Du hast Belohnungen für erstmaligen Kauf des Pakets {1} erhalten. Transaktions-ID: {2}\nTransaktionszeit: {3}
+purchase_limited_pack_subject~Belohnung aus beschränkten Paket
+purchase_limited_pack_content~Herzliche Glückwünsche! Du hast eine Belohnung für den Kauf von Paket {1} erhalten. Transaktions-ID: {2}\nTransaktionszeit: {3}
+purchase_event_bundle_pack_subject~Belohnung aus Ereignis-Paket
+purchase_event_bundle_pack_content~Herzliche Glückwünsche! Du hast Belohnungen für den Kauf von Ereignis-Paket {1} erhalten. Transaktions-ID: {2}\nTransaktionszeit: {3}
+purchase_event_hot_deal_subject~Belohnung aus Ereignis-Paket
+purchase_event_hot_deal_content~Herzliche Glückwünsche! Du hast Belohnungen für den Kauf von Ereignis-Paket {1} erhalten. Transaktions-ID: {2}\nTransaktionszeit: {3}
+purchase_subscription_pack_trial_subject~Tägliche Belohnung für das Testabonnement-Paket
+purchase_subscription_pack_trial_content~Herzliche Glückwünsche! Du hast tägliche Belohnung für das Testabonnement-Paket {1} erhalten. Datum: {2}
+purchase_first_time_reward_subject~Belohnung für Erstkauf
+purchase_first_time_reward_content~Herzliche Glückwünsche! Du hast Belohnungen für Erstkauf im Spiel erhalten.
+event_arena_subject~Ereignis {e(game_mode_6)}
+event_arena_content~Herzliche Glückwünsche! Du hast Belohnungen der Saison {1} im Ereignis {e(game_mode_6)} erhalten.
+event_casino_subject~Ereignis {e(feature_11)}
+event_casino_content~Herzliche Glückwünsche! Du hast Belohnungen der Saison {1} im Ereignis {e(feature_11)} erhalten.
+event_hero_collect_subject~Ereignis Sammlung der Helden
+event_hero_collect_content~Herzliche Glückwünsche! Du hast Belohnungen der Saison {1} im Ereignis Sammlung der Helden erhalten.
+event_prophet_tree_subject~Ereignis Alter Baum
+event_prophet_tree_content~Herzliche Glückwünsche! Du hast Belohnungen der Saison {1} im Ereignis {e(feature_8)} erhalten.
+event_summon_subject~Ereignis Beschwörung
+event_summon_content~Herzliche Glückwünsche! Du hast Belohnungen der Saison {1} im Ereignis Beschwörung erhalten.
+event_tavern_subject~Ereignis {e(feature_7)}
+event_tavern_content~Herzliche Glückwünsche! Du hast Belohnungen der Saison {1} im Ereignis {e(feature_7)} erhalten.
+event_mid_autumn_subject~Event Mid-autumn
+event_mid_autumn_content~Congratulations! 
+email_change_password_subject~Änderung des E-Mail-Passworts für Summoner Era
+email_change_password_content~Benutzername: {2}. Code zum Zurücksetzen des Passworts {1}, Abgelaufen: {3}
+email_validation_subject~Validierungs-E-Mail für Summoner Era
+email_validation_content~Validierungscode {1}, Abgelaufen: {3}
+email_sender_name~Unterstützung Zitga
+welcome_mail_title~Welcome to Summoners Era!
+welcome_mail_content~Dear Summoners,\n\nThank you for playing Summoners Era. Hope you have amazing moments while enjoy playing it.\n\nWe would like to send you a small gift to support your upcoming adventure.\n\nWe hope you will be an important part of Summoners Era and make it even better in the future.\n\nThank you!\nSummoners Era Team.
+event_halloween_subject~Event Halloween
+event_halloween_content~Congratulation! You've finished a lap in Dice Game. Claim these reward now!
+event_black_friday_subject~Black Friday Card Reward
+event_black_friday_content~Congratulations! You've received daily rewards from Black Friday Card {1}.\nDay: {2}\nSeason: {3}
+event_new_year_subject~Blessing Card Reward
+event_new_year_content~Congratulations! You've received daily rewards from Blessing Card.\nDay: {1}\n

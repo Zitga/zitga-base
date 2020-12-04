@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.LeanPool.Editor",
+    "references": [
+      "Zitga.LeanPool"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

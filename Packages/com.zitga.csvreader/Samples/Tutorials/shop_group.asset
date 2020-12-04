@@ -1,0 +1,642 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ac9fbc88a12834d846c4526ee28e5a, type: 3}
+  m_Name: shop_group
+  m_EditorClassIdentifier: 
+  shopGroups:
+  - groupId: 1
+    stageMin: 010000000200000003000000
+    stageMax: 99
+    shops:
+    - shopType: 1
+      groupRate: 5
+      rewardStocks:
+      - id: 0
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 10
+          resNumber: 100000
+        reward:
+          moneyType: 1
+          moneyValue: 100
+      - id: 1
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 200
+      - id: 2
+        rate: 2
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 30
+          resNumber: 5
+        - resType: 2
+          resId: 30
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 250
+      enable: 0
+    - shopType: 2
+      groupRate: 3
+      rewardStocks:
+      - id: 4
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 750
+      - id: 5
+        rate: 3
+        stock: 1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 150
+      - id: 6
+        rate: 2
+        stock: 1
+        resources:
+        - resType: 2
+          resId: 30
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 200
+      - id: 7
+        rate: 2
+        stock: 1
+        resources:
+        - resType: 2
+          resId: 31
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 500
+      enable: 1
+    - shopType: 3
+      groupRate: 2
+      rewardStocks:
+      - id: 8
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 600
+      - id: 9
+        rate: 3
+        stock: 1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 100
+      - id: 10
+        rate: 2
+        stock: 1
+        resources:
+        - resType: 2
+          resId: 60
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 400
+      - id: 11
+        rate: 2
+        stock: 1
+        resources:
+        - resType: 2
+          resId: 31
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 400
+      enable: 0
+  - groupId: 2
+    stageMin: 64000000
+    stageMax: 600
+    shops:
+    - shopType: 1
+      groupRate: 50
+      rewardStocks:
+      - id: 12
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 10
+          resNumber: 500000
+        reward:
+          moneyType: 1
+          moneyValue: 100
+      - id: 13
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 200
+      - id: 14
+        rate: 2
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 30
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 250
+      - id: 15
+        rate: 2
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 30
+          resNumber: 1
+        reward:
+          moneyType: 0
+          moneyValue: 100000
+      enable: 0
+    - shopType: 2
+      groupRate: 30
+      rewardStocks:
+      - id: 16
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 750
+      - id: 17
+        rate: 3
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 150
+      - id: 18
+        rate: 2
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 30
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 200
+      - id: 19
+        rate: 2
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 31
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 500
+      enable: 0
+    - shopType: 3
+      groupRate: 20
+      rewardStocks:
+      - id: 20
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 600
+      - id: 21
+        rate: 3
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 100
+      - id: 22
+        rate: 2
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 60
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 400
+      - id: 23
+        rate: 2
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 31
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 400
+      enable: 0
+    - shopType: 4
+      groupRate: 20
+      rewardStocks:
+      - id: 20
+        rate: 3
+        stock: -1
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 5
+        reward:
+          moneyType: 1
+          moneyValue: 600
+      - id: 21
+        rate: 3
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 51
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 100
+      - id: 22
+        rate: 2
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 60
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 400
+      - id: 23
+        rate: 2
+        stock: 5
+        resources:
+        - resType: 2
+          resId: 31
+          resNumber: 1
+        - resType: 2
+          resId: 31
+          resNumber: 1
+        reward:
+          moneyType: 1
+          moneyValue: 400
+      enable: 0
+  shopDict:
+    keys: 0100000002000000
+    values:
+    - groupId: 1
+      stageMin: 010000000200000003000000
+      stageMax: 99
+      shops:
+      - shopType: 1
+        groupRate: 5
+        rewardStocks:
+        - id: 0
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 10
+            resNumber: 100000
+          reward:
+            moneyType: 1
+            moneyValue: 100
+        - id: 1
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 200
+        - id: 2
+          rate: 2
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 30
+            resNumber: 5
+          - resType: 2
+            resId: 30
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 250
+        enable: 0
+      - shopType: 2
+        groupRate: 3
+        rewardStocks:
+        - id: 4
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 750
+        - id: 5
+          rate: 3
+          stock: 1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 150
+        - id: 6
+          rate: 2
+          stock: 1
+          resources:
+          - resType: 2
+            resId: 30
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 200
+        - id: 7
+          rate: 2
+          stock: 1
+          resources:
+          - resType: 2
+            resId: 31
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 500
+        enable: 1
+      - shopType: 3
+        groupRate: 2
+        rewardStocks:
+        - id: 8
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 600
+        - id: 9
+          rate: 3
+          stock: 1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 100
+        - id: 10
+          rate: 2
+          stock: 1
+          resources:
+          - resType: 2
+            resId: 60
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 400
+        - id: 11
+          rate: 2
+          stock: 1
+          resources:
+          - resType: 2
+            resId: 31
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 400
+        enable: 0
+    - groupId: 2
+      stageMin: 64000000
+      stageMax: 600
+      shops:
+      - shopType: 1
+        groupRate: 50
+        rewardStocks:
+        - id: 12
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 10
+            resNumber: 500000
+          reward:
+            moneyType: 1
+            moneyValue: 100
+        - id: 13
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 200
+        - id: 14
+          rate: 2
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 30
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 250
+        - id: 15
+          rate: 2
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 30
+            resNumber: 1
+          reward:
+            moneyType: 0
+            moneyValue: 100000
+        enable: 0
+      - shopType: 2
+        groupRate: 30
+        rewardStocks:
+        - id: 16
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 750
+        - id: 17
+          rate: 3
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 150
+        - id: 18
+          rate: 2
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 30
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 200
+        - id: 19
+          rate: 2
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 31
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 500
+        enable: 0
+      - shopType: 3
+        groupRate: 20
+        rewardStocks:
+        - id: 20
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 600
+        - id: 21
+          rate: 3
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 100
+        - id: 22
+          rate: 2
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 60
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 400
+        - id: 23
+          rate: 2
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 31
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 400
+        enable: 0
+      - shopType: 4
+        groupRate: 20
+        rewardStocks:
+        - id: 20
+          rate: 3
+          stock: -1
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 5
+          reward:
+            moneyType: 1
+            moneyValue: 600
+        - id: 21
+          rate: 3
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 51
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 100
+        - id: 22
+          rate: 2
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 60
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 400
+        - id: 23
+          rate: 2
+          stock: 5
+          resources:
+          - resType: 2
+            resId: 31
+            resNumber: 1
+          - resType: 2
+            resId: 31
+            resNumber: 1
+          reward:
+            moneyType: 1
+            moneyValue: 400
+        enable: 0

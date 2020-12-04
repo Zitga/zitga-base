@@ -1,0 +1,68 @@
+key~value
+vip_reward_subject~Recompensas VIP
+vip_reward_content~Parabéns! Você recebeu recompensas por ser VIP {1}.
+friend_boss_last_hit_reward_subject~Recompensa do {e(game_mode_9)}
+friend_boss_last_hit_reward_content~Parabéns! Você tem a recompensa do {e(game_mode_9)} pelo último acerto
+friend_boss_cleared_reward_subject~Recompensa do {e(game_mode_9)}
+friend_boss_cleared_reward_content~Parabéns! Você tem recompensas por derrotar o {e(game_mode_9)}
+friend_season_ranking_reward_subject~Ranking de Amizade da Temporada
+friend_season_ranking_reward_content~Parabéns! Você conseguiu {1} recompensa do Ranking de Amizade da Temporada
+arena_season_ranking_reward_subject~Ranking da Temporada da Arena
+arena_season_ranking_reward_content~Parabéns! Você conseguiu {1} recompensa do Ranking da Arena da temporada
+guild_boss_daily_reward_subject~Recompensa do Chefão diário da Guilda
+guild_boss_daily_reward_content~Parabéns! Você tem Recompensas por entrar no Chefão diário da Guilda
+guild_boss_monthly_reward_subject~Recompensa mensal do Chefão da Guilda
+guild_boss_monthly_reward_content~Parabéns! Você tem recompensas mensais no Chefão da Guilda.
+guild_dungeon_cleared_reward_subject~Guild Dungeon Rewards
+guild_dungeon_cleared_reward_content~Congratulations! You've received rewards for completing stage {1} of season {2} in the Guild Dungeon.
+guild_dungeon_season_reward_subject~Recompensas da temporada da Masmorra da Guilda
+guild_dungeon_season_reward_content~Parabéns! Você recebeu recompensas por completar a {1} temporada da Masmorra da Guilda
+guild_war_battle_reward_subject~Recompensas da Batalha da Guerra da Guilda
+guild_war_battle_reward_content~Parabéns! Você recebeu recompensas por completar a batalha {2} da temporada {1} na Guerra da Guilda.
+guild_war_season_reward_subject~Recompensas da temporada da Guerra da Guilda
+guild_war_season_reward_content~Parabéns! Você recebeu recompensas por ter completado a temporada {1} na Guerra da Guilda.
+purchase_raw_pack_subject~Pacote Bruto de Recompensas
+purchase_raw_pack_content~Parabéns! Você recebeu prêmios por comprar o pacote {1}.\nID da transação: {2}.\nHora da Transação: {3}.
+purchase_subscription_pack_instant_subject~Pacote de Prêmios de Assinatura
+purchase_subscription_pack_instant_content~Parabéns! Você recebeu prêmios por adquirir o pacote de assinatura {1}.\nID da transação: {2}.\nHora da Transação: {3}.
+purchase_subscription_pack_daily_subject~Recompensa diária do Pacote de Assinatura
+purchase_subscription_pack_daily_content~Parabéns! Recebeu prémios diários do pacote de assinatura {1}.\nDia: {2}
+purchase_progress_pack_subject~Special Pack Reward
+purchase_progress_pack_content~Congratulations! You received a reward for purchasing special pack {1}.\nTransaction ID: {2}\nTransaction Time: {3}
+purchase_limited_pack_subject~Recompensa de Pacote Limitado
+purchase_limited_pack_content~Parabéns! Você recebeu uma recompensa por comprar um pacote limitado {1}.\nID da transação: {2}.\nHora da transação: {3}.
+purchase_event_bundle_pack_subject~Pacote de Eventos
+purchase_event_bundle_pack_content~Parabéns! Você recebeu uma recompensa pela compra do pacote de eventos {1}.\nID da transação: {2}.\nHora da Transação: {3}.
+purchase_event_hot_deal_subject~Pacote de Eventos
+purchase_event_hot_deal_content~Parabéns! Você recebeu uma recompensa pela compra do pacote de eventos {1}.\nID da transação: {2}.\nHora da transação: {3}.
+purchase_subscription_pack_trial_subject~Recompensa do Pacote Teste de Assinatura Diário
+purchase_subscription_pack_trial_content~Parabéns! Recebeu prémios diários do pacote teste de assinatura {1}.\nDia: {2}
+purchase_first_time_reward_subject~Recompensa pela Primeira Compra
+purchase_first_time_reward_content~Parabéns! Você recebeu pela primeira vez recompensas por comprar pela primeira vez no jogo
+event_arena_subject~Evento Arena
+event_arena_content~Parabéns! Recebeu prêmios da temporada {1} no evento Arena.
+event_casino_subject~Evento Roda do Destino
+event_casino_content~Parabéns! Recebeu prêmios da temporada {1} no evento Roda do Destino.
+event_hero_collect_subject~Evento de Coleta de Heróis
+event_hero_collect_content~Parabéns! Recebeu uma recompensa na Temporada {1} no Evento de Coleta de Heróis.
+event_prophet_tree_subject~Evento Árvore Antiga
+event_prophet_tree_content~Parabéns! Você recebeu uma recompensa na Temporada {1} no evento Árvore Anciã.
+event_summon_subject~Evento de Invocação
+event_summon_content~Parabéns! Você recebeu uma recompensa de Temporada {1} no Evento de Convocação.
+event_tavern_subject~Evento Taverna
+event_tavern_content~Parabéns! Você recebeu uma recompensa na Temporada {1} no evento Taverna.
+event_mid_autumn_subject~Event Mid-autumn
+event_mid_autumn_content~Congratulations! 
+email_change_password_subject~Alterar senha e e-mail para a Era de Invocador
+email_change_password_content~Nome de usuário: {2}. Código de redefinição de senha {1}, Expirado: {3}
+email_validation_subject~E-mail de validação para a Era de Invocação
+email_validation_content~Código de validação {1}, Expirado: {3}
+email_sender_name~Suporte Zitga
+welcome_mail_title~Welcome to Summoners Era!
+welcome_mail_content~Dear Summoners,\n\nThank you for playing Summoners Era. Hope you have amazing moments while enjoy playing it.\n\nWe would like to send you a small gift to support your upcoming adventure.\n\nWe hope you will be an important part of Summoners Era and make it even better in the future.\n\nThank you!\nSummoners Era Team.
+event_halloween_subject~Event Halloween
+event_halloween_content~Congratulation! You've finished a lap in Dice Game. Claim these reward now!
+event_black_friday_subject~Black Friday Card Reward
+event_black_friday_content~Congratulations! You've received daily rewards from Black Friday Card {1}.\nDay: {2}\nSeason: {3}
+event_new_year_subject~Blessing Card Reward
+event_new_year_content~Congratulations! You've received daily rewards from Blessing Card.\nDay: {1}\n

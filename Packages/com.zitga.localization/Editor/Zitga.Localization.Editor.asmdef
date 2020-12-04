@@ -1,0 +1,10 @@
+{
+    "name": "Zitga.Localization.Editor",
+    "references": [
+      "Zitga.Localization"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

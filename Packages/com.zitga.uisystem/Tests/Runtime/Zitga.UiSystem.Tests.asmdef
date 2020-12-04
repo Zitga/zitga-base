@@ -1,0 +1,11 @@
+{
+    "name": "Zitga.UiSystem.Tests",
+    "references": [
+        "Zitga.UiSystem"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

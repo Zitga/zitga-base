@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f00afbde0ef144396043e5407464a2, type: 3}
+  m_Name: mail
+  m_EditorClassIdentifier: 
+  data:
+    keys:
+    - vip_reward_subject
+    - vip_reward_content
+    - friend_boss_last_hit_reward_subject
+    - friend_boss_last_hit_reward_content
+    - friend_boss_cleared_reward_subject
+    - friend_boss_cleared_reward_content
+    - friend_season_ranking_reward_subject
+    - friend_season_ranking_reward_content
+    - arena_season_ranking_reward_subject
+    - arena_season_ranking_reward_content
+    - guild_boss_daily_reward_subject
+    - guild_boss_daily_reward_content
+    - guild_boss_monthly_reward_subject
+    - guild_boss_monthly_reward_content
+    - guild_dungeon_cleared_reward_subject
+    - guild_dungeon_cleared_reward_content
+    - guild_dungeon_season_reward_subject
+    - guild_dungeon_season_reward_content
+    - guild_war_battle_reward_subject
+    - guild_war_battle_reward_content
+    - guild_war_season_reward_subject
+    - guild_war_season_reward_content
+    - purchase_raw_pack_subject
+    - purchase_raw_pack_content
+    - purchase_subscription_pack_instant_subject
+    - purchase_subscription_pack_instant_content
+    - purchase_subscription_pack_daily_subject
+    - purchase_subscription_pack_daily_content
+    - purchase_progress_pack_subject
+    - purchase_progress_pack_content
+    - purchase_limited_pack_subject
+    - purchase_limited_pack_content
+    - purchase_event_bundle_pack_subject
+    - purchase_event_bundle_pack_content
+    - purchase_event_hot_deal_subject
+    - purchase_event_hot_deal_content
+    - purchase_subscription_pack_trial_subject
+    - purchase_subscription_pack_trial_content
+    - purchase_first_time_reward_subject
+    - purchase_first_time_reward_content
+    - event_arena_subject
+    - event_arena_content
+    - event_casino_subject
+    - event_casino_content
+    - event_hero_collect_subject
+    - event_hero_collect_content
+    - event_prophet_tree_subject
+    - event_prophet_tree_content
+    - event_summon_subject
+    - event_summon_content
+    - event_tavern_subject
+    - event_tavern_content
+    - event_mid_autumn_subject
+    - event_mid_autumn_content
+    - email_change_password_subject
+    - email_change_password_content
+    - email_validation_subject
+    - email_validation_content
+    - email_sender_name
+    - welcome_mail_title
+    - welcome_mail_content
+    - event_halloween_subject
+    - event_halloween_content
+    - event_black_friday_subject
+    - event_black_friday_content
+    - event_new_year_subject
+    - event_new_year_content
+    values:
+    - VIP-Belohnungen
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr das Erreichen von
+      VIP {1} erhalten."
+    - Belohnungen aus  {e(game_mode_9)}
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den letzten Treffer
+      von {e(game_mode_9)} erhalten."
+    - Belohnungen aus  {e(game_mode_9)}
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr das Besiegen von
+      {e(game_mode_9)} erhalten."
+    - "Ranking f\xFCr Freund-Saison"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr Ranking f\xFCr Freund-Saison
+      {1} erhalten."
+    - "Ranking f\xFCr Arena-Saison"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr Ranking f\xFCr Saison
+      {1} in {e(game_mode_6)} erhalten."
+    - "T\xE4gliche Belohnung f\xFCr Verein-Boss"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr die Teilnahme an
+      Herausforderung Verein-Boss erhalten."
+    - "Monatliche Belohnung f\xFCr Verein-Boss"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast monatliche Belohnung f\xFCr Verein-Boss
+      erhalten."
+    - "Belohnung f\xFCr {e(game_mode_11)}"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Abschluss der
+      Phase {1} in {2} erhalten."
+    - "Ranking f\xFCr {e(game_mode_11)}-Saison"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Abschluss der
+      Saison {1} von {e(game_mode_11)} erhalten."
+    - "Belohnung f\xFCr Verein-Krieg"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Abschluss der
+      Schlacht {2} der Saison {1} im Verein-Krieg erhalten."
+    - "Belohnung f\xFCr Verein-Krieg-Saison"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Abschluss der
+      Saison {1} im Verein-Krieg erhalten."
+    - Belohnung Rohes Paket
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Kauf von Paket
+      {1} erhalten. Transaktions-ID: {2}\\nTransaktionszeit: {3}"
+    - Belohnung Abonnement-Paket
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Kauf von Abonnement-Paket
+      {1} erhalten. Transaktions-ID: {2}\\nTransaktionszeit: {3}"
+    - "T\xE4gliche Belohnung  Abonnement-Paket"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen aus dem Abonnement-Paket
+      {1} erhalten. Datum: {2}"
+    - "Belohnung f\xFCr erstmaligen Kauf des Pakets"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr erstmaligen Kauf
+      des Pakets {1} erhalten. Transaktions-ID: {2}\\nTransaktionszeit: {3}"
+    - "Belohnung aus beschr\xE4nkten Paket"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast eine Belohnung f\xFCr den Kauf von Paket
+      {1} erhalten. Transaktions-ID: {2}\\nTransaktionszeit: {3}"
+    - Belohnung aus Ereignis-Paket
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Kauf von Ereignis-Paket
+      {1} erhalten. Transaktions-ID: {2}\\nTransaktionszeit: {3}"
+    - Belohnung aus Ereignis-Paket
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr den Kauf von Ereignis-Paket
+      {1} erhalten. Transaktions-ID: {2}\\nTransaktionszeit: {3}"
+    - "T\xE4gliche Belohnung f\xFCr das Testabonnement-Paket"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast t\xE4gliche Belohnung f\xFCr das Testabonnement-Paket
+      {1} erhalten. Datum: {2}"
+    - "Belohnung f\xFCr Erstkauf"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen f\xFCr Erstkauf im Spiel
+      erhalten."
+    - Ereignis {e(game_mode_6)}
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen der Saison {1} im Ereignis
+      {e(game_mode_6)} erhalten."
+    - Ereignis {e(feature_11)}
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen der Saison {1} im Ereignis
+      {e(feature_11)} erhalten."
+    - Ereignis Sammlung der Helden
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen der Saison {1} im Ereignis
+      Sammlung der Helden erhalten."
+    - Ereignis Alter Baum
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen der Saison {1} im Ereignis
+      {e(feature_8)} erhalten."
+    - "Ereignis Beschw\xF6rung"
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen der Saison {1} im Ereignis
+      Beschw\xF6rung erhalten."
+    - Ereignis {e(feature_7)}
+    - "Herzliche Gl\xFCckw\xFCnsche! Du hast Belohnungen der Saison {1} im Ereignis
+      {e(feature_7)} erhalten."
+    - Event Mid-autumn
+    - 'Congratulations! '
+    - "\xC4nderung des E-Mail-Passworts f\xFCr Summoner Era"
+    - "Benutzername: {2}. Code zum Zur\xFCcksetzen des Passworts {1}, Abgelaufen:
+      {3}"
+    - "Validierungs-E-Mail f\xFCr Summoner Era"
+    - 'Validierungscode {1}, Abgelaufen: {3}'
+    - "Unterst\xFCtzung Zitga"
+    - Welcome to Summoners Era!
+    - Dear Summoners,\n\nThank you for playing Summoners Era. Hope you have amazing
+      moments while enjoy playing it.\n\nWe would like to send you a small gift to
+      support your upcoming adventure.\n\nWe hope you will be an important part of
+      Summoners Era and make it even better in the future.\n\nThank you!\nSummoners
+      Era Team.
+    - Event Halloween
+    - Congratulation! You've finished a lap in Dice Game. Claim these reward now!
+    - Black Friday Card Reward
+    - 'Congratulations! You''ve received daily rewards from Black Friday Card {1}.\nDay:
+      {2}\nSeason: {3}'
+    - Blessing Card Reward
+    - 'Congratulations! You''ve received daily rewards from Blessing Card.\nDay:
+      {1}\n'

@@ -1,0 +1,11 @@
+{
+    "name": "Zitga.Localization.Tests",
+    "references": [
+        "Zitga.Localization"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
