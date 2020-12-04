@@ -481,17 +481,7 @@ namespace ZitgaPackageManager.Editors
             pkgNameQueue.Clear();
             urlQueue.Clear();
 
-            foreach (var item in providersSet[providerInfo.providerName].dependencies)
-            {
-                if (providersLocal.Keys.Contains(item.Key) &&
-                    providersLocal[item.Key].currentStatues != ZBaseEnum.Status.none)
-                {
-                    continue;
-                }
-
-                pkgNameQueue.Add(item.Key);
-            }
-
+            CheckDependenciesPackage(providerInfo);
             AddMultiPackage();
 
             while (isAddMultiPkg)
@@ -503,6 +493,31 @@ namespace ZitgaPackageManager.Editors
             ZBaseEditorCoroutines.StartEditorCoroutine(AddPackage(providerInfo, callback));
         }
 
+        private void CheckDependenciesPackage(ProviderModel providerModel)
+        {
+            foreach (var item in providersSet[providerModel.providerName].dependencies)
+            {
+                if (pkgNameQueue.Contains(item.Key))
+                    continue;
+
+                if (providersLocal.Keys.Contains(item.Key) &&
+                    providersLocal[item.Key].currentStatues != ZBaseEnum.Status.none)
+                {
+                    continue;
+                }
+
+                if (providersSet.Keys.Contains(item.Key) &&
+                    providersSet[item.Key].dependencies.Count > 0)
+                {
+                    pkgNameQueue.Add(item.Key);
+                    CheckDependenciesPackage(providersSet[item.Key]);
+                }
+                else
+                {
+                    pkgNameQueue.Add(item.Key);
+                }
+            }
+        }
 
         private void AddMultiPackage()
         {
@@ -525,30 +540,14 @@ namespace ZitgaPackageManager.Editors
                 {
                     providerSever = providersSet[item];
 
-                    ZBaseEditorCoroutines.StartEditorCoroutine(SearchPackage(item, (resultSearch) =>
-                    {
-                        if (resultSearch != null)
-                        {
-                            if (resultSearch.Result.Length > 0)
-                                isRegistry = true;
-                        }
-                    }));
-
-                    if (isRegistry)
-                    {
-                        urlDownload = item;
-                    }
-                    else
-                    {
-                        if (providerSever.source == ZBaseEnum.Source.git)
-                            urlDownload = providerSever.downloadURL +
-                                          string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
-                        else if (providerSever.source == ZBaseEnum.Source.embedded)
-                            urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo,
-                                providerSever.providerName);
-                        else if (providerSever.source == ZBaseEnum.Source.registry)
-                            urlDownload = providerSever.providerName;
-                    }
+                    if (providerSever.source == ZBaseEnum.Source.git)
+                        urlDownload = providerSever.downloadURL +
+                                      string.Format(SuffixesVersionGitURL, providerSever.latestUnityVersion);
+                    else if (providerSever.source == ZBaseEnum.Source.embedded)
+                        urlDownload = string.Format(InstallURL, ZBasePackageIdConfig.Repo,
+                            providerSever.providerName);
+                    else if (providerSever.source == ZBaseEnum.Source.registry)
+                        urlDownload = providerSever.providerName;
                 }
                 else
                 {
