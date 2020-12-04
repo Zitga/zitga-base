@@ -8,6 +8,7 @@
     "name": "Zitga"
   },
   "dependencies": {
+    "com.cysharp.unitask": "",
     "com.zitga.csvreader": "",
     "com.zitga.localization": ""
   }

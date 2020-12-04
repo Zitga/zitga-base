@@ -616,7 +616,7 @@ namespace ZitgaPackageManager.Editors
             while (!result.IsCompleted)
             {
                 isProcessing = true;
-                EditorUtility.DisplayProgressBar(providerInfo.displayProviderName + " Downloading...", "",
+                EditorUtility.DisplayCancelableProgressBar(providerInfo.displayProviderName + " Downloading...", "",
                     percentProgress);
                 percentProgress += 0.002f;
                 if (percentProgress >= 1)
