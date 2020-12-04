@@ -179,6 +179,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
+        "com.cysharp.unitask": "",
         "com.zitga.csvreader": ""
       }
     },
@@ -197,6 +198,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
+        "com.cysharp.unitask": "",
         "com.zitga.csvreader": "",
         "com.zitga.localization": ""
       }
