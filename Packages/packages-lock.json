@@ -282,6 +282,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "zitga.unirx": {
+      "version": "file:zitga.unirx",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "zitga.unityiap": {
       "version": "file:zitga.unityiap",
       "depth": 0,

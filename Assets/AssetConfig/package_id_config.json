@@ -18,5 +18,6 @@
   "zitga.leanpool": "Lean_Pool",
   "com.zitga.csvreader": "CsvReader",
   "com.zitga.localization": "Localization",
-  "com.zitga.uisystem": "UISystem"
+  "com.zitga.uisystem": "UISystem",
+  "zitga.unirx": "UniRx"
 }
